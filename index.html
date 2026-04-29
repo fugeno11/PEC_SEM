@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit I — Electronic Communications Exam Prep</title>
+<title>PEC — Principles of Electronic Communications · Exam Prep</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,6 +14,8 @@
     --gray-light: #f0eeea;
     --gray-mid: #d0cec8;
     --gray-dark: #5a5a5a;
+    --accent: #1a3a5c;
+    --accent2: #c0392b;
     --border: 1px solid #0a0a0a;
     --border-thin: 1px solid rgba(10,10,10,0.15);
     --font-display: 'Playfair Display', serif;
@@ -32,10 +34,74 @@
     min-height: 100vh;
   }
 
+  /* ── UNIT SWITCHER ── */
+  .unit-switcher {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--black);
+    background: var(--white);
+    box-shadow: -4px 4px 0 var(--black);
+  }
+
+  .unit-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 14px 12px;
+    cursor: pointer;
+    border: none;
+    background: var(--white);
+    color: var(--black);
+    border-bottom: var(--border);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .unit-btn:last-child { border-bottom: none; }
+
+  .unit-btn.active {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .unit-btn:hover:not(.active) {
+    background: var(--gray-light);
+  }
+
+  .unit-btn .unit-badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: var(--black);
+    color: var(--white);
+    font-size: 10px;
+    margin-bottom: 6px;
+    border-radius: 2px;
+  }
+
+  .unit-btn.active .unit-badge {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
   /* ── HEADER ── */
   header {
     border-bottom: 2px solid var(--black);
-    padding: 0;
     position: sticky;
     top: 0;
     background: var(--white);
@@ -101,7 +167,6 @@
   }
 
   nav a:hover { background: var(--black); color: var(--white); }
-  nav a:first-child { border-left: none; }
 
   /* ── HERO ── */
   .hero {
@@ -126,16 +191,13 @@
 
   .hero-heading {
     font-family: var(--font-display);
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: clamp(30px, 4vw, 56px);
     font-weight: 900;
     line-height: 1.05;
     margin-bottom: 24px;
   }
 
-  .hero-heading em {
-    font-style: italic;
-    display: block;
-  }
+  .hero-heading em { font-style: italic; display: block; }
 
   .hero-desc {
     font-size: 15px;
@@ -245,17 +307,8 @@
     line-height: 1.4;
   }
 
-  aside a:hover {
-    border-left-color: var(--black);
-    background: var(--gray-light);
-  }
-
-  aside a.active {
-    border-left-color: var(--black);
-    background: var(--black);
-    color: var(--white);
-    font-weight: 500;
-  }
+  aside a:hover { border-left-color: var(--black); background: var(--gray-light); }
+  aside a.active { border-left-color: var(--black); background: var(--black); color: var(--white); font-weight: 500; }
 
   /* ── CONTENT ── */
   .content { padding: 0; }
@@ -279,8 +332,6 @@
     flex-shrink: 0;
   }
 
-  .section-info {}
-
   .section-tag {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -298,9 +349,7 @@
   }
 
   /* ── QUESTION CARDS ── */
-  .q-block {
-    border-bottom: 2px solid var(--black);
-  }
+  .q-block { border-bottom: 2px solid var(--black); }
 
   .q-trigger {
     display: flex;
@@ -333,26 +382,9 @@
   .q-badge.p2 { background: var(--white); color: var(--black); }
   .q-badge.short { background: var(--gray-light); color: var(--black); }
 
-  .q-question {
-    font-size: 14px;
-    font-weight: 500;
-    flex: 1;
-    line-height: 1.4;
-  }
-
-  .q-marks {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--gray-dark);
-    flex-shrink: 0;
-  }
-
-  .q-arrow {
-    font-size: 16px;
-    transition: transform 0.25s;
-    flex-shrink: 0;
-  }
-
+  .q-question { font-size: 14px; font-weight: 500; flex: 1; line-height: 1.4; }
+  .q-marks { font-family: var(--font-mono); font-size: 11px; color: var(--gray-dark); flex-shrink: 0; }
+  .q-arrow { font-size: 16px; transition: transform 0.25s; flex-shrink: 0; }
   .q-block.open .q-arrow { transform: rotate(90deg); }
 
   .q-body {
@@ -367,26 +399,9 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ── CONTENT ELEMENTS ── */
-  h3 {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 700;
-    margin: 24px 0 10px;
-    border-bottom: var(--border-thin);
-    padding-bottom: 6px;
-  }
-
-  h4 {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gray-dark);
-    margin: 18px 0 6px;
-  }
-
+  h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin: 24px 0 10px; border-bottom: var(--border-thin); padding-bottom: 6px; }
+  h4 { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-dark); margin: 18px 0 6px; }
   p { margin-bottom: 12px; color: #1a1a1a; }
-
   ul, ol { padding-left: 20px; margin-bottom: 12px; }
   li { margin-bottom: 6px; color: #1a1a1a; }
 
@@ -420,31 +435,9 @@
     display: block;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 13px;
-  }
-
-  th {
-    background: var(--black);
-    color: var(--white);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    text-align: left;
-    border: var(--border);
-  }
-
-  td {
-    padding: 9px 14px;
-    border: 1px solid var(--gray-mid);
-    vertical-align: top;
-  }
-
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { background: var(--black); color: var(--white); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border: var(--border); }
+  td { padding: 9px 14px; border: 1px solid var(--gray-mid); vertical-align: top; }
   tr:nth-child(even) td { background: var(--gray-light); }
 
   .diagram {
@@ -465,19 +458,273 @@
     background: var(--white);
   }
 
-  /* ── DIAGRAMS (SVG) ── */
   .diagram svg { display: block; width: 100%; }
+
+  /* ── RATING MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.85);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border: 2px solid var(--black);
+    width: 520px;
+    max-width: 95vw;
+    box-shadow: 8px 8px 0 var(--black);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .modal-header {
+    border-bottom: 2px solid var(--black);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .modal-close {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-dark);
+    padding: 4px 8px;
+  }
+
+  .modal-body { padding: 32px; }
+
+  .modal-subtitle {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 20px;
+  }
+
+  .star-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .star {
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--gray-mid);
+    transition: all 0.15s;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .star.active { color: #e8a500; }
+  .star:hover { transform: scale(1.1); }
+
+  .rating-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--gray-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 24px;
+  }
+
+  .comment-area {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 12px 16px;
+    border: var(--border);
+    background: var(--gray-light);
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .comment-area:focus { border-color: var(--accent); }
+
+  .comment-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .modal-actions { display: flex; gap: 12px; }
+
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    background: var(--black);
+    color: var(--white);
+    border: var(--border);
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    background: var(--white);
+    color: var(--black);
+    border: var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-secondary:hover { background: var(--gray-light); }
+
+  /* ── ACCESS DENIED ── */
+  .access-denied {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 1500;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .access-denied.show { display: flex; }
+
+  .denied-code {
+    font-family: var(--font-mono);
+    font-size: 80px;
+    color: var(--accent2);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .denied-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .denied-desc {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--gray-dark);
+    max-width: 400px;
+    margin-bottom: 32px;
+  }
+
+  .denied-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    background: var(--white);
+    color: var(--black);
+    border: 2px solid var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .denied-btn:hover { background: transparent; color: var(--white); }
 
   /* ── FOOTER ── */
   footer {
     border-top: 2px solid var(--black);
     padding: 24px 48px;
+    background: var(--white);
+  }
+
+  .footer-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: var(--border-thin);
     font-family: var(--font-mono);
     font-size: 11px;
     color: var(--gray-dark);
+  }
+
+  .footer-reviews-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 12px;
+  }
+
+  .reviews-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .review-card {
+    border: var(--border);
+    padding: 12px 16px;
+    background: var(--gray-light);
+    font-size: 13px;
+    max-width: 280px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .review-stars {
+    color: #e8a500;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .review-text { color: var(--black); margin-bottom: 6px; font-size: 13px; }
+
+  .review-meta {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--gray-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .no-reviews {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gray-dark);
+    font-style: italic;
   }
 
   /* ── RESPONSIVE ── */
@@ -488,13 +735,70 @@
     main { grid-template-columns: 1fr; }
     aside { display: none; }
     .section-header, .q-trigger, .q-body { padding-left: 24px; padding-right: 24px; }
-    footer { flex-direction: column; gap: 8px; padding: 20px 24px; }
+    footer { padding: 20px 24px; }
+    .unit-switcher { top: auto; bottom: 20px; right: 20px; transform: none; flex-direction: row; }
+    .unit-btn { writing-mode: horizontal-tb; }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- UNIT SWITCHER -->
+<div class="unit-switcher">
+  <button class="unit-btn active" onclick="switchUnit(1)" id="btn-unit1">
+    <span class="unit-badge">1</span>
+    Unit-1
+  </button>
+  <button class="unit-btn" onclick="handleUnit2Click()" id="btn-unit2">
+    <span class="unit-badge">2</span>
+    Unit-2
+  </button>
+</div>
+
+<!-- RATING MODAL -->
+<div class="modal-overlay" id="ratingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Rate Unit 1</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-subtitle">Please rate your Unit 1 experience to unlock Unit 2</p>
+      <div class="star-row" id="starRow">
+        <span class="star" onclick="setRating(1)">★</span>
+        <span class="star" onclick="setRating(2)">★</span>
+        <span class="star" onclick="setRating(3)">★</span>
+        <span class="star" onclick="setRating(4)">★</span>
+        <span class="star" onclick="setRating(5)">★</span>
+      </div>
+      <div class="rating-labels">
+        <span>Poor</span>
+        <span>Average</span>
+        <span>Excellent</span>
+      </div>
+      <label class="comment-label">Your comment (optional)</label>
+      <textarea class="comment-area" id="commentArea" placeholder="Share your thoughts about Unit 1..."></textarea>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary" onclick="submitRating()">Submit &amp; Unlock Unit 2 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCESS DENIED -->
+<div class="access-denied" id="accessDenied">
+  <div class="denied-code">403</div>
+  <div class="denied-title">Access Denied</div>
+  <p class="denied-desc">You need to rate Unit 1 before accessing Unit 2. Please go back and leave a rating to unlock the next unit.</p>
+  <button class="denied-btn" onclick="hideDenied()">← Back to Unit 1</button>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: UNIT 1                          -->
+<!-- ══════════════════════════════════════ -->
+<div class="page active" id="page-unit1">
+
 <header>
   <div class="header-top">
     <span class="header-label">ECE / PEC</span>
@@ -505,23 +809,18 @@
     <a href="#modulation">01 Modulation</a>
     <a href="#spectrum">02 EM Spectrum</a>
     <a href="#commSystem">03 Comm System</a>
-    <a href="#gainAtten">04 Gain & Attenuation</a>
+    <a href="#gainAtten">04 Gain &amp; Attenuation</a>
     <a href="#decibels">05 Decibels</a>
     <a href="#freqTrans">06 Freq Translation</a>
-    <a href="#shortAnswers">07 Short Answers</a>
+    <a href="#u1-shortAnswers">07 Short Answers</a>
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <p class="hero-eyebrow">Exam Preparation Guide · Unit I</p>
-    <h1 class="hero-heading">
-      Introduction<br>to
-      <em>Communication</em>
-      Systems
-    </h1>
-    <p class="hero-desc">All priority 1 &amp; 2 long answers plus short answers — with block diagrams, formulas, and worked examples. Study smart for tomorrow.</p>
+    <h1 class="hero-heading">Introduction<br>to <em>Communication</em> Systems</h1>
+    <p class="hero-desc">All priority 1 &amp; 2 long answers plus short answers — with block diagrams, formulas, and worked examples.</p>
   </div>
   <div class="hero-right">
     <div class="topic-grid">
@@ -541,10 +840,7 @@
   </div>
 </section>
 
-<!-- MAIN -->
 <main>
-
-<!-- SIDEBAR -->
 <aside>
   <div class="aside-section">
     <div class="aside-label">Priority 1 — Long</div>
@@ -562,14 +858,13 @@
   </div>
   <div class="aside-section">
     <div class="aside-label">Short Answers</div>
-    <a href="#shortAnswers">Definitions + Problems</a>
+    <a href="#u1-shortAnswers">Definitions + Problems</a>
   </div>
 </aside>
 
-<!-- CONTENT -->
 <div class="content">
 
-  <!-- ══ SECTION 01: MODULATION ══ -->
+  <!-- SECTION 01: MODULATION -->
   <div class="section-header" id="modulation">
     <span class="section-num">01</span>
     <div class="section-info">
@@ -577,7 +872,6 @@
       <div class="section-title">Need for Modulation in Electronic Communications</div>
     </div>
   </div>
-
   <div class="q-block open">
     <button class="q-trigger" onclick="toggle(this)">
       <span class="q-badge p1">Priority 1</span>
@@ -586,29 +880,22 @@
       <span class="q-arrow">›</span>
     </button>
     <div class="q-body">
-
       <h3>Definition of Modulation</h3>
       <p>Modulation is the process of changing the parameters (amplitude, frequency, or phase) of a high-frequency <strong>carrier signal</strong> in accordance with the instantaneous values of a low-frequency <strong>modulating (message/intelligence) signal</strong>.</p>
       <p>The resultant signal after modulation is called the <strong>modulated signal</strong>. The high-frequency carrier carries the message to the destination.</p>
-
       <div class="diagram">
         <div class="diagram-label">Fig 1.1 — Modulation block diagram</div>
         <svg viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
           <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
-          <!-- Message signal -->
           <rect x="20" y="30" width="120" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="80" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Message signal</text>
-          <!-- Carrier -->
           <rect x="20" y="90" width="120" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="80" y="109" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Carrier signal</text>
-          <!-- Modulator -->
           <rect x="240" y="30" width="120" height="60" fill="#0a0a0a"/>
           <text x="300" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fafaf8">MODULATOR</text>
-          <!-- Modulated output -->
           <rect x="470" y="30" width="140" height="60" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="540" y="57" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Modulated</text>
           <text x="540" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">signal</text>
-          <!-- Arrows -->
           <line x1="140" y1="52" x2="238" y2="52" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
           <polyline points="140,105 200,105 200,75 238,65" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
           <line x1="360" y1="60" x2="468" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
@@ -616,9 +903,7 @@
           <text x="395" y="55" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Transmitted</text>
         </svg>
       </div>
-
       <h3>5 Reasons Why Modulation is Needed</h3>
-
       <h4>1. Reduction in antenna height</h4>
       <p>For effective radiation, antenna height must be at least <strong>λ/4</strong>. Without modulation, transmitting a baseband signal of 15 kHz would require:</p>
       <div class="formula">λ = c/f = (3×10⁸) / (15×10³) = 20,000 m
@@ -626,28 +911,19 @@ H = λ/4 = 5000 m  ← Impractical!
 
 With modulation at 1 MHz:
 λ = 3×10⁸ / 10⁶ = 300 m → H = 75 m  ✓</div>
-      <p>So modulation dramatically reduces the required antenna height.</p>
-
       <h4>2. Avoids mixing of signals</h4>
-      <p>If all audio/baseband signals are transmitted at the same frequency (0–5 kHz), they mix with each other. A receiver cannot separate them. Modulation assigns each signal a different carrier frequency, placing each in a different "slot" of the spectrum. Different receivers tune to different carriers — no mixing.</p>
-
+      <p>If all audio/baseband signals are transmitted at the same frequency, they mix. Modulation assigns each signal a different carrier frequency — different receivers tune to different carriers.</p>
       <h4>3. Multiplexing is possible</h4>
-      <p>Modulation allows more than one signal to be transmitted over a single medium simultaneously. This is possible only with modulation. Each signal occupies a different frequency domain "slot" (carrier). Without modulation, signals cannot share a single channel.</p>
-
+      <p>Modulation allows more than one signal to be transmitted over a single medium simultaneously. Each signal occupies a different frequency domain "slot".</p>
       <h4>4. Increases the range of communication</h4>
-      <p>Low-frequency baseband signals are heavily attenuated with distance. The modulation process increases the transmission frequency. Higher-frequency signals travel longer distances with less attenuation — increasing the range of communication.</p>
-
+      <p>Higher-frequency signals travel longer distances with less attenuation — increasing the range of communication.</p>
       <h4>5. Improves quality of reception</h4>
-      <p>High-frequency carrier signals protect information from various disturbances. The high-frequency carrier signal protects information from various disturbances and noise, improving the quality of reception at the destination.</p>
-
-      <div class="note">
-        <span class="note-label">Key formula to remember</span>
-        Minimum antenna height H = λ/4 = c/(4f). At 15 kHz → 5000 m. At 1 MHz (with modulation) → 75 m.
-      </div>
+      <p>High-frequency carrier signals protect information from various disturbances and noise, improving the quality of reception at the destination.</p>
+      <div class="note"><span class="note-label">Key formula to remember</span>Minimum antenna height H = λ/4 = c/(4f). At 15 kHz → 5000 m. At 1 MHz (with modulation) → 75 m.</div>
     </div>
   </div>
 
-  <!-- ══ SECTION 02: EM SPECTRUM ══ -->
+  <!-- SECTION 02: EM SPECTRUM -->
   <div class="section-header" id="spectrum">
     <span class="section-num">02</span>
     <div class="section-info">
@@ -655,7 +931,6 @@ With modulation at 1 MHz:
       <div class="section-title">Electromagnetic Spectrum and its Bands</div>
     </div>
   </div>
-
   <div class="q-block">
     <button class="q-trigger" onclick="toggle(this)">
       <span class="q-badge p1">Priority 1</span>
@@ -665,67 +940,28 @@ With modulation at 1 MHz:
     </button>
     <div class="q-body">
       <h3>Electromagnetic Spectrum</h3>
-      <p>Electromagnetic waves are signals that oscillate — they have both electric and magnetic field components at a specific rate (frequency). These oscillations may occur at very low frequencies or at extremely high frequencies.</p>
       <p>The range of electromagnetic signals encompassing all frequencies is referred to as the <strong>electromagnetic spectrum</strong>. All electrical and electronic signals that radiate into free space fall into the electromagnetic spectrum.</p>
-
-      <div class="diagram">
-        <div class="diagram-label">Fig 2.1 — Electromagnetic spectrum bands</div>
-        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
-          <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
-          <line x1="20" y1="20" x2="660" y2="20" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a2)"/>
-          <text x="650" y="16" text-anchor="end" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Freq →</text>
-          <!-- Bands -->
-          <rect x="20" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="52" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">ELF</text>
-          <rect x="85" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="117" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VF</text>
-          <rect x="150" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="182" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VLF</text>
-          <rect x="215" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="247" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">LF</text>
-          <rect x="280" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="312" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">MF</text>
-          <rect x="345" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="377" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">HF</text>
-          <rect x="410" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="442" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VHF</text>
-          <rect x="475" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="507" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">UHF</text>
-          <rect x="540" y="30" width="65" height="30" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="572" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">SHF+</text>
-          <text x="52" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">30 Hz</text>
-          <text x="312" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">300 kHz</text>
-          <text x="572" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#fafaf8">3 GHz+</text>
-        </svg>
-      </div>
-
       <h3>Frequency Band Table</h3>
       <table>
         <thead><tr><th>Band</th><th>Name</th><th>Frequency</th><th>Wavelength</th><th>Applications</th></tr></thead>
         <tbody>
-          <tr><td>ELF</td><td>Extremely Low Freq</td><td>30–300 Hz</td><td>10⁶–10⁷ m</td><td>AC power (50/60 Hz), audio low end</td></tr>
-          <tr><td>VF</td><td>Voice Frequency</td><td>300–3000 Hz</td><td>10⁵–10⁶ m</td><td>Normal range of human speech</td></tr>
-          <tr><td>VLF</td><td>Very Low Frequency</td><td>3–30 kHz</td><td>10⁴–10⁵ m</td><td>Military, govt comm, musical instruments, subcartiers</td></tr>
+          <tr><td>ELF</td><td>Extremely Low Freq</td><td>30–300 Hz</td><td>10⁶–10⁷ m</td><td>AC power (50/60 Hz)</td></tr>
+          <tr><td>VF</td><td>Voice Frequency</td><td>300–3000 Hz</td><td>10⁵–10⁶ m</td><td>Normal human speech</td></tr>
+          <tr><td>VLF</td><td>Very Low Frequency</td><td>3–30 kHz</td><td>10⁴–10⁵ m</td><td>Military, govt comm</td></tr>
           <tr><td>LF</td><td>Low Frequency</td><td>30–300 kHz</td><td>10³–10⁴ m</td><td>Aeronautical &amp; marine navigation</td></tr>
-          <tr><td>MF</td><td>Medium Frequency</td><td>300 kHz–3 MHz</td><td>10²–10³ m</td><td>AM broadcasting, aeronautical &amp; marine comm</td></tr>
-          <tr><td>HF</td><td>High Frequency</td><td>3–30 MHz</td><td>10–10² m</td><td>Short waves, VOA, BBC, amateur radio, CB radio</td></tr>
-          <tr><td>VHF</td><td>Very High Frequency</td><td>30–300 MHz</td><td>1–10 m</td><td>TV channels 2–13, FM radio, land mobile</td></tr>
-          <tr><td>UHF</td><td>Ultra High Frequency</td><td>300 MHz–3 GHz</td><td>0.1–1 m</td><td>TV ch 14–83, cellular phones, radar</td></tr>
-          <tr><td>SHF</td><td>Super High Freq (Microwave)</td><td>3–30 GHz</td><td>0.01–0.1 m</td><td>Satellite comm, microwave ovens, telephony</td></tr>
-          <tr><td>EHF</td><td>Extremely High Frequency</td><td>30–300 GHz</td><td>1–10 mm</td><td>Wireless LAN, satellite telephony, Radars</td></tr>
-          <tr><td>Infrared</td><td>Optical spectrum</td><td>300 GHz–430 THz</td><td>0.7–1000 μm</td><td>TV remotes, optical fiber, astronomy</td></tr>
-          <tr><td>Visible</td><td>VIBGYOR</td><td>430–750 THz</td><td>400–700 nm</td><td>Optical comm</td></tr>
+          <tr><td>MF</td><td>Medium Frequency</td><td>300 kHz–3 MHz</td><td>10²–10³ m</td><td>AM broadcasting</td></tr>
+          <tr><td>HF</td><td>High Frequency</td><td>3–30 MHz</td><td>10–10² m</td><td>Short waves, VOA, BBC, amateur radio</td></tr>
+          <tr><td>VHF</td><td>Very High Frequency</td><td>30–300 MHz</td><td>1–10 m</td><td>TV ch 2–13, FM radio</td></tr>
+          <tr><td>UHF</td><td>Ultra High Frequency</td><td>300 MHz–3 GHz</td><td>0.1–1 m</td><td>TV ch 14–83, cellular, radar</td></tr>
+          <tr><td>SHF</td><td>Super High Freq</td><td>3–30 GHz</td><td>0.01–0.1 m</td><td>Satellite comm, microwave ovens</td></tr>
+          <tr><td>EHF</td><td>Extremely High Frequency</td><td>30–300 GHz</td><td>1–10 mm</td><td>Wireless LAN, satellite</td></tr>
         </tbody>
       </table>
-
-      <div class="note">
-        <span class="note-label">Important Note</span>
-        HF (3–30 MHz) = "Short Waves". Broadcasts from Voice of America (VOA) and BBC occur in this range. Also: embassies, amateur radio, Citizen Band (CB) radio.
-      </div>
+      <div class="note"><span class="note-label">Important Note</span>HF (3–30 MHz) = "Short Waves". Broadcasts from Voice of America (VOA) and BBC occur in this range. Also: embassies, amateur radio, Citizen Band (CB) radio.</div>
     </div>
   </div>
 
-  <!-- ══ SECTION 03: COMM SYSTEM ══ -->
+  <!-- SECTION 03: COMM SYSTEM -->
   <div class="section-header" id="commSystem">
     <span class="section-num">03</span>
     <div class="section-info">
@@ -733,7 +969,6 @@ With modulation at 1 MHz:
       <div class="section-title">Basic Electronic Communication System</div>
     </div>
   </div>
-
   <div class="q-block">
     <button class="q-trigger" onclick="toggle(this)">
       <span class="q-badge p1">Priority 1</span>
@@ -743,94 +978,42 @@ With modulation at 1 MHz:
     </button>
     <div class="q-body">
       <h3>Introduction</h3>
-      <p><strong>Communication</strong> means sending, receiving, and processing of information between two or more devices. A collection of elements (devices) which work together to establish communication between a sender and receiver is called a <strong>communication system</strong>.</p>
-      <p>Examples: Radio broadcasting, TV broadcasting, Radio telegraphy, Mobile communication, Computer communication.</p>
-
+      <p><strong>Communication</strong> means sending, receiving, and processing of information between two or more devices. A collection of elements which work together to establish communication between a sender and receiver is called a <strong>communication system</strong>.</p>
       <div class="diagram">
         <div class="diagram-label">Fig 3.1 — Block diagram of a basic electronic communication system</div>
         <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
           <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
-          <!-- Blocks -->
-          <rect x="8" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="45" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Info</text>
-          <text x="45" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Source</text>
-
-          <rect x="92" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="129" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Input</text>
-          <text x="129" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
-
-          <rect x="176" y="52" width="74" height="44" fill="#0a0a0a"/>
-          <text x="213" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Trans-</text>
-          <text x="213" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">mitter</text>
-
-          <rect x="260" y="52" width="74" height="44" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="297" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Channel</text>
-
-          <!-- Noise -->
-          <rect x="272" y="110" width="50" height="30" fill="#fafaf8" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="4 2"/>
-          <text x="297" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Noise</text>
+          <rect x="8" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="45" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Info</text><text x="45" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Source</text>
+          <rect x="92" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="129" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Input</text><text x="129" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
+          <rect x="176" y="52" width="74" height="44" fill="#0a0a0a"/><text x="213" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Trans-</text><text x="213" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">mitter</text>
+          <rect x="260" y="52" width="74" height="44" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="297" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Channel</text>
+          <rect x="272" y="110" width="50" height="30" fill="#fafaf8" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="4 2"/><text x="297" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Noise</text>
           <line x1="297" y1="110" x2="297" y2="96" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#a3)"/>
-
-          <rect x="344" y="52" width="74" height="44" fill="#0a0a0a"/>
-          <text x="381" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Receiver</text>
-
-          <rect x="428" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="465" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Output</text>
-          <text x="465" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
-
-          <rect x="512" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="549" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Desti-</text>
-          <text x="549" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">nation</text>
-
-          <!-- Arrows between blocks -->
+          <rect x="344" y="52" width="74" height="44" fill="#0a0a0a"/><text x="381" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Receiver</text>
+          <rect x="428" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="465" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Output</text><text x="465" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
+          <rect x="512" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="549" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Desti-</text><text x="549" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">nation</text>
           <line x1="82" y1="74" x2="90" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
           <line x1="166" y1="74" x2="174" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
           <line x1="250" y1="74" x2="258" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
           <line x1="334" y1="74" x2="342" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
           <line x1="418" y1="74" x2="426" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
           <line x1="502" y1="74" x2="510" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
-
-          <!-- Labels below -->
-          <text x="45" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Message</text>
-          <text x="129" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Elec signal</text>
-          <text x="549" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">eg. TV</text>
         </svg>
       </div>
-
       <h3>Explanation of Each Block</h3>
-
-      <h4>Information Source</h4>
-      <p>Originates the message — may be sound (human speech), light, picture, words. The message is referred to as <strong>information or intelligence signal</strong>.</p>
-
-      <h4>Input Transducer</h4>
-      <p>A device which converts one form of energy into another form (non-electrical to electrical). It converts the message signal (sound, light) into an electrical signal. Example: <strong>Microphone</strong> — a device which is placed in the information section to convert sound signals into electrical signals.</p>
-
-      <h4>Transmitter</h4>
-      <p>A device which transmits the message (electrical signal) over the communication channel. Uses a technique called <strong>modulation</strong> to send the signals. Transmitters include oscillators, amplifiers, modulators, frequency mixers, tuned circuits, and antennas.</p>
-
-      <h4>Communication Channel</h4>
-      <p>The medium through which the signal travels from transmitter to receiver. Types: <strong>Free space</strong> (wireless), <strong>Wire</strong> (twisted pair, co-axial cable), <strong>Fiber-optic cable</strong>.</p>
-
-      <h4>Noise</h4>
-      <p>Noise is the general term for all unwanted signals added to the transmitted signal along the communication channel. Noise degrades the quality of information. Signal-to-Noise Ratio (SNR) = Signal Power / Noise Power (dB). High SNR → preferred for best performance.</p>
-
-      <h4>Receiver</h4>
-      <p>A device that receives the signal from the channel, converts it to the original electrical signal, and amplifies it. TV receiver contains amplifiers, filters, oscillators, demodulators, tuned circuits. It converts the signal sent by the transmitter back into an understandable form.</p>
-
-      <h4>Output Transducer</h4>
-      <p>Converts the electrical signal back to non-electrical form (sound or light). Example: <strong>Loudspeaker</strong> — converts electrical signal to sound.</p>
-
-      <h4>Destination</h4>
-      <p>The final stage — the place where the communication system consumes the information. Example: watching TV.</p>
-
-      <div class="note">
-        <span class="note-label">Transceiver</span>
-        A transceiver is a device that can both transmit and receive — it incorporates circuits that both send and receive. Examples: cellular telephones, fax machines, hand-held CB radios, computer modems.
-      </div>
+      <h4>Information Source</h4><p>Originates the message — may be sound, light, picture, words.</p>
+      <h4>Input Transducer</h4><p>Converts non-electrical energy to electrical signal. Example: <strong>Microphone</strong> converts sound to electrical signal.</p>
+      <h4>Transmitter</h4><p>Transmits the electrical signal over the channel using <strong>modulation</strong>. Contains oscillators, amplifiers, modulators, and antennas.</p>
+      <h4>Communication Channel</h4><p>Medium through which signal travels. Types: <strong>Free space</strong> (wireless), <strong>Wire</strong> (twisted pair, co-axial), <strong>Fiber-optic cable</strong>.</p>
+      <h4>Noise</h4><p>Unwanted signals added to the transmitted signal. SNR = Signal Power / Noise Power. High SNR → preferred.</p>
+      <h4>Receiver</h4><p>Receives signal from channel, converts to original electrical signal, amplifies it. Contains demodulators, filters, amplifiers.</p>
+      <h4>Output Transducer</h4><p>Converts electrical signal back to non-electrical form. Example: <strong>Loudspeaker</strong>.</p>
+      <h4>Destination</h4><p>Final stage — where the communication system consumes the information.</p>
+      <div class="note"><span class="note-label">Transceiver</span>A transceiver is a device that can both transmit and receive. Examples: cellular telephones, fax machines, computer modems.</div>
     </div>
   </div>
 
-  <!-- ══ SECTION 04: GAIN & ATTENUATION ══ -->
+  <!-- SECTION 04: GAIN & ATTENUATION -->
   <div class="section-header" id="gainAtten">
     <span class="section-num">04</span>
     <div class="section-info">
@@ -838,7 +1021,6 @@ With modulation at 1 MHz:
       <div class="section-title">Gain, Attenuation and Decibels</div>
     </div>
   </div>
-
   <div class="q-block">
     <button class="q-trigger" onclick="toggle(this)">
       <span class="q-badge p1">Priority 1</span>
@@ -847,84 +1029,35 @@ With modulation at 1 MHz:
       <span class="q-arrow">›</span>
     </button>
     <div class="q-body">
-      <p>Most electronic circuits in communication are used to process signals — to manipulate signals to produce a desired result. All signal processing circuits involve either <strong>gain</strong> or <strong>attenuation</strong>.</p>
-
       <h3>1. Gain</h3>
-      <p>Gain means <strong>amplification</strong>. If the signal is applied to a circuit such as an amplifier and the output has a greater amplitude than the input signal, the circuit has gain. Gain is the ratio of output to input.</p>
+      <p>Gain means <strong>amplification</strong>. Gain is the ratio of output to input. When output amplitude > input amplitude, the circuit has gain.</p>
       <div class="formula">Voltage Gain (Av) = Vout / Vin
 Power Gain (Ap) = Pout / Pin</div>
-
-      <div class="diagram">
-        <div class="diagram-label">Fig 4.1 — Cascaded amplifier stages</div>
-        <svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg">
-          <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
-          <text x="20" y="44" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Vin →</text>
-          <rect x="65" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="120" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A1 (Gain)</text>
-          <line x1="175" y1="42" x2="193" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
-          <rect x="195" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="250" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A2 (Gain)</text>
-          <line x1="305" y1="42" x2="323" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
-          <rect x="325" y="22" width="110" height="40" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="5 2"/>
-          <text x="380" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A3 (Loss)</text>
-          <line x1="435" y1="42" x2="453" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
-          <rect x="455" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="510" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A4 (Gain)</text>
-          <line x1="565" y1="42" x2="583" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
-          <text x="590" y="46" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Vout</text>
-          <text x="340" y="72" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5a5a5a">A_Total = A1 × A2 × A3 × A4 (product of gains)</text>
-        </svg>
-      </div>
-      <p>When two or more amplifier stages are cascaded, the overall gain = <strong>product of individual circuit gains</strong>: A_T = A1 × A2 × A3 × A4</p>
-
+      <p>Cascaded stages: <strong>A_Total = A1 × A2 × A3 × A4</strong> (product of individual gains)</p>
       <h3>2. Attenuation</h3>
-      <p>Attenuation refers to a <strong>loss</strong> introduced by a circuit or component. Many electronic circuits (sometimes called "stages") reduce the amplitude of a signal rather than increase it. If the output signal is lower in amplitude than the input, the circuit has loss or attenuation.</p>
-      <div class="formula">Attenuation A = Output / Input = Vout / Vin   (value &lt; 1)
-Circuits with attenuation have a gain less than 1.
-Total attenuation = A1 × A2 × A3 (product of individual attenuations)</div>
-
+      <p>Attenuation refers to a <strong>loss</strong> introduced by a circuit. If output signal is lower than input amplitude, the circuit has attenuation (gain &lt; 1).</p>
+      <div class="formula">Attenuation A = Vout / Vin   (value &lt; 1)
+Total attenuation = A1 × A2 × A3</div>
       <h3>3. Decibels (dB)</h3>
-      <p>The gain or loss of a circuit is usually expressed in <strong>decibels (dB)</strong>. The decibel was originally created as a way of expressing the hearing response of the human ear to various sound levels. The decibel is one-tenth of a Bel.</p>
+      <p>Gain or loss is usually expressed in <strong>decibels (dB)</strong> — originally created to express the human ear's hearing response. The decibel is one-tenth of a Bel.</p>
       <div class="formula">dB (voltage) = 20 log (Vout / Vin)
 dB (current) = 20 log (Iout / Iin)
 dB (power)   = 10 log (Pout / Pin)
 
-Total gain/attenuation = algebraic SUM of individual dB stages:
-  A_Total (dB) = A1 – A2 + A3</div>
-
+Total cascaded dB = algebraic SUM of individual dB stages</div>
       <h3>Worked Examples</h3>
-
-      <h4>Example 1 — Express Pout = 12.3 dBm in watts</h4>
-      <div class="formula">dBm = 10 log(Pout / 1mW)
-→ Pout = 10^(12.3/10) × 1mW
-→ Pout = 10^1.23 × 1mW = 17 mW = 0.017 W</div>
-
-      <h4>Example 2 — Find power gain of 5-stage amplifier</h4>
-      <div class="formula">Each stage gain = 22%, Pin = 35 mW
-Pout = Pin × 10^(Ap/10)
-Pout = 35 × 10^2.2 = 35 × 158.49 ≈ 620.95 mW
-Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
-
-      <table>
-        <thead><tr><th>Sound</th><th>Level (dB)</th></tr></thead>
-        <tbody>
-          <tr><td>Threshold of hearing (0 dB)</td><td>0 dB</td></tr>
-          <tr><td>Rustle of leaves</td><td>10 dB</td></tr>
-          <tr><td>Whisper</td><td>15 dB</td></tr>
-          <tr><td>Quiet radio</td><td>40 dB</td></tr>
-          <tr><td>Normal conversation</td><td>65 dB</td></tr>
-          <tr><td>Busy street corner</td><td>80 dB</td></tr>
-          <tr><td>Subway car</td><td>100 dB</td></tr>
-          <tr><td>Pain threshold</td><td>120 dB</td></tr>
-          <tr><td>Jet engine</td><td>140–160 dB</td></tr>
-        </tbody>
-      </table>
-
+      <h4>Problem 1 — Voltage gain in dB</h4>
+      <div class="formula">Vin = 10 mV, Vout = 2 V
+dB = 20 log(2 / 0.01) = 20 log(200) = 46 dB</div>
+      <h4>Problem 2 — Find Pout from dBm</h4>
+      <div class="formula">Pout = 12.3 dBm
+Pout = 10^(12.3/10) × 1 mW = 17 mW</div>
+      <div class="note"><span class="note-label">Quick rules</span>0 dB = unity · +10 dB power = 10× · +20 dB power = 100× · +3 dB power ≈ 2×</div>
       <div id="decibels"></div>
     </div>
   </div>
 
-  <!-- ══ SECTION 05: FREQUENCY TRANSLATION (P2) ══ -->
+  <!-- SECTION 05: FREQ TRANSLATION -->
   <div class="section-header" id="freqTrans">
     <span class="section-num">05</span>
     <div class="section-info">
@@ -932,7 +1065,6 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
       <div class="section-title">Frequency Translation</div>
     </div>
   </div>
-
   <div class="q-block">
     <button class="q-trigger" onclick="toggle(this)">
       <span class="q-badge p2">Priority 2</span>
@@ -942,48 +1074,39 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
     </button>
     <div class="q-body">
       <h3>Frequency Translation</h3>
-      <p><strong>Frequency translation</strong> is the process of transferring a signal from one frequency range to another — moving the frequency axis from one point to another. Frequency translation occurs frequently in a wireless communication system. It is used to convert a frequency band signal to a baseband signal and is the <strong>most efficient method of transmission</strong>.</p>
-
+      <p><strong>Frequency translation</strong> is the process of transferring a signal from one frequency range to another. It is the <strong>most efficient method of transmission</strong> in a wireless communication system.</p>
       <div class="diagram">
         <div class="diagram-label">Fig 5.1 — Frequency translation block diagram</div>
         <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg">
           <defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
           <rect x="20" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="70" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">S₁(t) signal</text>
-
           <rect x="190" y="40" width="130" height="36" fill="#0a0a0a"/>
           <text x="255" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">× cos2π(f₁–f₂)t</text>
           <text x="255" y="70" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Multiplier</text>
-
           <text x="255" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">↑ Carrier input</text>
           <line x1="255" y1="100" x2="255" y2="78" stroke="#5a5a5a" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#a5)"/>
-
           <rect x="390" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="440" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">BPF at f₂</text>
-
           <rect x="560" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="610" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">S₂(t) at f₂</text>
-
           <line x1="120" y1="58" x2="188" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
           <line x1="320" y1="58" x2="388" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
           <line x1="490" y1="58" x2="558" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
         </svg>
       </div>
-
-      <h3>Significance of Frequency Translation</h3>
+      <h3>Significance</h3>
       <ul>
         <li>Converts baseband signals to passband signals for wireless long-distance transmission</li>
         <li>Enables <strong>multiplexing</strong> — multiple signals on the same channel using different carrier frequencies</li>
-        <li>Reduces antenna height requirement (same benefit as modulation)</li>
+        <li>Reduces antenna height requirement</li>
         <li>Allows use of Band Pass Filters (BPF) for channel selection at the receiver</li>
-        <li>Upward translation: baseband signal → centered spectrum at a new carrier f₂</li>
-        <li>Downward translation (demodulation): extracts the original baseband signal at receiver</li>
       </ul>
       <div class="formula">S(t) × cos2π(f₁–f₂)t → BPF at f₂ → S₂(t) centered at f₂</div>
     </div>
   </div>
 
-  <!-- ══ SECTION 06: FREQ BANDS (P2) ══ -->
+  <!-- SECTION 06: FREQ BANDS -->
   <div class="section-header" id="freqBands">
     <span class="section-num">06</span>
     <div class="section-info">
@@ -999,24 +1122,24 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
       <span class="q-arrow">›</span>
     </button>
     <div class="q-body">
-      <p>Refer to Section 02 (EM Spectrum) for the full band table. Key additional notes on specific bands:</p>
+      <p>Refer to Section 02 for the full band table. Key notes:</p>
       <ul>
-        <li><strong>ELF:</strong> Includes AC power line frequencies (50 and 60 Hz) and the low end of human audio range.</li>
-        <li><strong>VF:</strong> Normal range of human speech.</li>
-        <li><strong>VLF:</strong> Higher end of human hearing range. Many musical instruments make sounds in this range. Used in government and military communication.</li>
-        <li><strong>LF:</strong> Aeronautical and marine navigation. Also used as sub-carriers.</li>
-        <li><strong>MF:</strong> AM broadcasting. Aeronautical and marine communication.</li>
-        <li><strong>HF (Short Waves):</strong> All kinds of simplex broadcasting and half-duplex two-way radio comm. Broadcasts from VOA and BBC. Embassies, amateur radio (individuals become licensed "hams"), CB communication (Citizen Band — trucks, cars).</li>
-        <li><strong>VHF:</strong> TV channels (2–13), FM radio broadcasting, land mobile, cellular telephones, military, radio amateurs.</li>
+        <li><strong>ELF:</strong> AC power line frequencies (50/60 Hz), low end of human audio range.</li>
+        <li><strong>VF:</strong> Normal range of human speech (300–3000 Hz).</li>
+        <li><strong>VLF:</strong> Government and military communication, musical instruments.</li>
+        <li><strong>LF:</strong> Aeronautical and marine navigation.</li>
+        <li><strong>MF:</strong> AM broadcasting, aeronautical and marine communication.</li>
+        <li><strong>HF (Short Waves):</strong> VOA and BBC broadcasts, embassies, amateur radio, CB (Citizen Band) communication.</li>
+        <li><strong>VHF:</strong> TV channels (2–13), FM radio broadcasting, land mobile, cellular telephones.</li>
         <li><strong>UHF:</strong> TV channels (14–83), cellular, land mobile, military.</li>
         <li><strong>SHF (Microwave):</strong> Microwave ovens, satellite comm, telephony, computer data comm.</li>
-        <li><strong>EHF:</strong> Wireless LAN, satellite communication, Radars. Specialized equipment — extremely complex and expensive.</li>
-        <li><strong>Infrared:</strong> 3 types — infrared, visible, ultra-violet. Produced by light bulbs. Uses: LEDs, lasers, astronomy, TV remotes, optical fiber.</li>
+        <li><strong>EHF:</strong> Wireless LAN, satellite communication, Radars. Complex and expensive equipment.</li>
+        <li><strong>Infrared:</strong> LEDs, lasers, astronomy, TV remotes, optical fiber.</li>
       </ul>
     </div>
   </div>
 
-  <!-- ══ SECTION 07: MOD TYPES (P2) ══ -->
+  <!-- SECTION 07: MOD TYPES -->
   <div class="section-header" id="modTypes">
     <span class="section-num">07</span>
     <div class="section-info">
@@ -1036,41 +1159,26 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
         <div class="diagram-label">Fig 7.1 — Classification of modulation techniques</div>
         <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg">
           <defs><marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
-          <!-- Root -->
           <rect x="240" y="10" width="200" height="36" fill="#0a0a0a"/>
           <text x="340" y="32" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#fafaf8">Modulation Types</text>
-          <!-- CW -->
           <rect x="60" y="82" width="160" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="140" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Continuous Wave</text>
-          <!-- Pulse -->
           <rect x="460" y="82" width="160" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
           <text x="540" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Pulse Modulation</text>
-          <!-- Lines to children -->
           <polyline points="340,46 340,64 140,64 140,80" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a7)"/>
           <polyline points="340,46 340,64 540,64 540,80" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a7)"/>
-          <!-- AM FM PM -->
-          <rect x="20" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="60" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">AM</text>
-          <rect x="110" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="150" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">FM</text>
-          <rect x="200" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="240" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PM</text>
-          <polyline points="140,118 140,148 60,148 60,158" fill="none" stroke="#0a0a0a" stroke-width="0.8"/>
+          <rect x="20" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="60" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">AM</text>
+          <rect x="110" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="150" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">FM</text>
+          <rect x="200" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="240" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PM</text>
+          <polyline points="140,118 140,148 60,148 60,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
           <polyline points="140,118 140,148 150,148 150,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
           <polyline points="140,118 140,148 240,148 240,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
-          <line x1="60" y1="148" x2="60" y2="158" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
-          <!-- PAM PWM PCM -->
-          <rect x="420" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="455" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PAM</text>
-          <rect x="500" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="535" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PWM</text>
-          <rect x="580" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
-          <text x="615" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PCM</text>
-          <polyline points="540,118 540,148 455,148 455,158" fill="none" stroke="#0a0a0a" stroke-width="0.8"/>
+          <rect x="420" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="455" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PAM</text>
+          <rect x="500" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="535" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PWM</text>
+          <rect x="580" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="615" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PCM</text>
+          <polyline points="540,118 540,148 455,148 455,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
           <polyline points="540,118 540,148 535,148 535,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
           <polyline points="540,118 540,148 615,148 615,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
-          <line x1="455" y1="148" x2="455" y2="158" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
-          <!-- Sub-labels -->
           <text x="60" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude</text>
           <text x="150" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Frequency</text>
           <text x="240" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Phase</text>
@@ -1079,31 +1187,22 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
           <text x="615" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Coded</text>
         </svg>
       </div>
-
       <h3>Continuous Wave (CW) Modulation</h3>
-      <p>A high-frequency sine wave is used as a carrier. Three parameters can be varied:</p>
       <ul>
-        <li><strong>AM (Amplitude Modulation):</strong> Amplitude of carrier varied with the instantaneous amplitude of the modulating signal.</li>
-        <li><strong>FM (Frequency Modulation):</strong> Frequency of carrier varied with the modulating signal. Better noise immunity than AM.</li>
-        <li><strong>PM (Phase Modulation):</strong> Phase of the carrier varied with the modulating signal. PM and FM together are called <strong>Angle Modulation</strong>.</li>
+        <li><strong>AM:</strong> Amplitude of carrier varied with instantaneous amplitude of modulating signal.</li>
+        <li><strong>FM:</strong> Frequency of carrier varied. Better noise immunity than AM.</li>
+        <li><strong>PM:</strong> Phase of carrier varied. PM and FM together = <strong>Angle Modulation</strong>.</li>
       </ul>
-
       <h3>Pulse Modulation</h3>
-      <p>A periodic sequence of rectangular pulses is used as a carrier:</p>
       <ul>
-        <li><strong>PAM (Pulse Amplitude Modulation):</strong> Amplitude of pulses varies in accordance with the baseband modulating signal.</li>
-        <li><strong>PWM/PPM (Pulse Width/Position Modulation):</strong> Width or position of a pulse is varied.</li>
-        <li><strong>PCM (Pulse Code Modulation):</strong> Digital form — analog signal is converted into digital form (coded pulse train). The result is a coded pulse train (delta modulation is further developed from PCM).</li>
+        <li><strong>PAM:</strong> Amplitude of pulses varies in accordance with the baseband signal.</li>
+        <li><strong>PWM/PPM:</strong> Width or position of pulses is varied.</li>
+        <li><strong>PCM:</strong> Digital form — analog signal converted into coded pulse train.</li>
       </ul>
-
-      <div class="note">
-        <span class="note-label">Digital modulation (Unit II)</span>
-        ASK, FSK, PSK, QPSK — in digital modulation, the modulating signal is in digital form. The signal is converted to digital form first (using PCM), then modulated.
-      </div>
     </div>
   </div>
 
-  <!-- ══ SECTION 08: dB PROBLEMS (P2) ══ -->
+  <!-- SECTION 08: dB PROBLEMS -->
   <div class="section-header" id="dbProblems">
     <span class="section-num">08</span>
     <div class="section-info">
@@ -1119,188 +1218,1373 @@ Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
       <span class="q-arrow">›</span>
     </button>
     <div class="q-body">
-      <h3>Formula Sheet</h3>
       <div class="formula">Voltage Gain:  Av = Vout / Vin
 Power Gain:    Ap = Pout / Pin
-
 dB (voltage) = 20 log(Vout / Vin)
-dB (current) = 20 log(Iout / Iin)
 dB (power)   = 10 log(Pout / Pin)
-
-Convert dB back → ratio:
-  Pout/Pin = 10^(dB/10)   [power]
-  Vout/Vin = 10^(dB/20)   [voltage]
-
 Total cascaded dB = algebraic sum (add gains, subtract losses)</div>
-
-      <h3>Solved Problems</h3>
-
       <h4>Problem 1 — Voltage gain in dB</h4>
-      <div class="formula">Given: Vin = 10 mV = 0.01 V, Vout = 2 V
-dB = 20 log(2 / 0.01) = 20 log(200) = 20 × 2.301 = 46 dB</div>
-
+      <div class="formula">Vin = 10 mV, Vout = 2 V
+dB = 20 log(200) = 46 dB</div>
       <h4>Problem 2 — Power gain in dB</h4>
-      <div class="formula">Given: Pin = 50 mW, Pout = 500 mW
-dB = 10 log(500 / 50) = 10 log(10) = 10 × 1 = 10 dB</div>
-
-      <h4>Problem 3 — Find Pout from dBm</h4>
-      <div class="formula">Given: Pout = 12.3 dBm
-Pout = 10^(12.3/10) × 1 mW = 10^1.23 × 1 mW = 17 mW</div>
-
-      <h4>Problem 4 — Cascaded stages with a loss stage</h4>
-      <div class="formula">Stages: A1 = +12 dB (gain), A2 = −6 dB (loss), A3 = +8 dB (gain)
-A_Total = 12 − 6 + 8 = +14 dB (net gain)</div>
-
-      <h4>Problem 5 — Find Pout if Pin = 1 mW and gain = 20 dB</h4>
-      <div class="formula">20 = 10 log(Pout / 1 mW)
-Pout / Pin = 10^(20/10) = 10^2 = 100
+      <div class="formula">Pin = 50 mW, Pout = 500 mW
+dB = 10 log(10) = 10 dB</div>
+      <h4>Problem 3 — Cascaded stages</h4>
+      <div class="formula">A1 = +12 dB, A2 = −6 dB, A3 = +8 dB
+A_Total = 12 − 6 + 8 = +14 dB</div>
+      <h4>Problem 4 — Find Pout</h4>
+      <div class="formula">Pin = 1 mW, gain = 20 dB
 Pout = 100 × 1 mW = 100 mW</div>
-
-      <div class="note">
-        <span class="note-label">Quick rules</span>
-        0 dB = unity (no change) · Positive dB = gain · Negative dB = attenuation/loss · +10 dB power = 10× power · +20 dB power = 100× power · +3 dB power ≈ 2× power
-      </div>
     </div>
   </div>
 
-  <!-- ══ SECTION 09: SHORT ANSWERS ══ -->
-  <div class="section-header" id="shortAnswers">
+  <!-- SHORT ANSWERS U1 -->
+  <div class="section-header" id="u1-shortAnswers">
     <span class="section-num">09</span>
     <div class="section-info">
       <div class="section-tag">Short Answers · 2–3 marks each</div>
       <div class="section-title">Definitions and Short Answer Questions</div>
     </div>
   </div>
-
   <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Define Modulation</span>
-      <span class="q-arrow">›</span>
-    </button>
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Define Modulation</span><span class="q-arrow">›</span></button>
     <div class="q-body">
       <p>Modulation is the process of changing the parameters (amplitude, frequency, or phase) of a high-frequency carrier signal in accordance with the instantaneous values of the low-frequency modulating (message) signal.</p>
-      <p>The signal which contains a message to be transmitted is called the <strong>modulating signal</strong>. The high-frequency signal used as the carrier is called the <strong>carrier signal</strong>. The resultant is the <strong>modulated signal</strong>.</p>
       <div class="formula">Modulated signal = carrier signal modified by modulating signal</div>
     </div>
   </div>
-
   <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Define Frequency Translation</span>
-      <span class="q-arrow">›</span>
-    </button>
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Define Frequency Translation</span><span class="q-arrow">›</span></button>
     <div class="q-body">
-      <p>Frequency translation is the process of transferring a signal from one frequency range to another — moving the frequency axis from one point to another. It is the most efficient method of transmission in a wireless communication system.</p>
-      <p>It converts a baseband (low-frequency) signal to a passband signal centered at a higher carrier frequency (upward translation), or converts a passband back to baseband at the receiver (downward translation / demodulation).</p>
+      <p>Frequency translation is the process of transferring a signal from one frequency range to another. It converts a baseband signal to a passband signal (upward) or passband back to baseband at receiver (downward/demodulation).</p>
     </div>
   </div>
-
   <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Spectrum Bands — List them</span>
-      <span class="q-arrow">›</span>
-    </button>
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Define Gain + numerical</span><span class="q-arrow">›</span></button>
     <div class="q-body">
-      <p>The electromagnetic spectrum encompasses all frequencies from ELF to gamma rays. Key bands used in electronic communication:</p>
-      <table>
-        <thead><tr><th>Band</th><th>Name</th><th>Frequency</th></tr></thead>
-        <tbody>
-          <tr><td>ELF</td><td>Extremely Low Frequency</td><td>30–300 Hz</td></tr>
-          <tr><td>VF</td><td>Voice Frequency</td><td>300–3000 Hz</td></tr>
-          <tr><td>VLF</td><td>Very Low Frequency</td><td>3–30 kHz</td></tr>
-          <tr><td>LF</td><td>Low Frequency</td><td>30–300 kHz</td></tr>
-          <tr><td>MF</td><td>Medium Frequency</td><td>300 kHz–3 MHz</td></tr>
-          <tr><td>HF</td><td>High Frequency</td><td>3–30 MHz</td></tr>
-          <tr><td>VHF</td><td>Very High Frequency</td><td>30–300 MHz</td></tr>
-          <tr><td>UHF</td><td>Ultra High Frequency</td><td>300 MHz–3 GHz</td></tr>
-          <tr><td>SHF</td><td>Super High Frequency</td><td>3–30 GHz</td></tr>
-          <tr><td>EHF</td><td>Extremely High Frequency</td><td>30–300 GHz</td></tr>
-        </tbody>
-      </table>
+      <p><strong>Gain</strong> means amplification — ratio of output to input of a circuit.</p>
+      <div class="formula">Voltage Gain = Vout / Vin   Power Gain = Pout / Pin
+dB gain = 20 log(Vout/Vin) or 10 log(Pout/Pin)</div>
+      <p>Problem: Vin = 10 mV, Vout = 2 V → dB = 20 log(200) = <strong>46 dB</strong></p>
     </div>
   </div>
-
   <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Define Gain + numerical problem</span>
-      <span class="q-arrow">›</span>
-    </button>
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Define Attenuation + numerical</span><span class="q-arrow">›</span></button>
     <div class="q-body">
-      <p><strong>Gain</strong> means amplification. It is the ratio of output to input of a circuit. When the output amplitude is greater than the input amplitude, the circuit has gain.</p>
-      <div class="formula">Voltage Gain = Vout / Vin
-Power Gain   = Pout / Pin
-dB gain      = 20 log(Vout/Vin) or 10 log(Pout/Pin)</div>
-      <p><strong>Problem:</strong> Vin = 10 mV, Vout = 2 V. Find dB gain.</p>
-      <div class="formula">dB = 20 log(2 / 0.01) = 20 × log(200) = 20 × 2.301 = 46 dB</div>
+      <p><strong>Attenuation</strong> is a loss introduced by a circuit. Output amplitude &lt; input amplitude. Gain &lt; 1 (negative dB).</p>
+      <div class="formula">Vin = 5 V, Vout = 0.5 V
+dB = 20 log(0.1) = −20 dB</div>
     </div>
   </div>
-
   <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Define Attenuation + numerical problem</span>
-      <span class="q-arrow">›</span>
-    </button>
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Define Decibels + numerical</span><span class="q-arrow">›</span></button>
     <div class="q-body">
-      <p><strong>Attenuation</strong> is a loss introduced by a circuit or component. When the output amplitude is lower than the input, the circuit has attenuation. Circuits with attenuation have gain less than 1 (negative dB).</p>
-      <div class="formula">Attenuation A = Vout / Vin   (value &lt; 1)
-dB = 20 log(Vout/Vin)        (negative value)</div>
-      <p><strong>Problem:</strong> Vin = 5 V, Vout = 0.5 V. Find attenuation in dB.</p>
-      <div class="formula">dB = 20 log(0.5 / 5) = 20 log(0.1) = 20 × (−1) = −20 dB</div>
-    </div>
-  </div>
-
-  <div class="q-block">
-    <button class="q-trigger" onclick="toggle(this)">
-      <span class="q-badge short">Short</span>
-      <span class="q-question">Define Decibels + numerical problem</span>
-      <span class="q-arrow">›</span>
-    </button>
-    <div class="q-body">
-      <p><strong>Decibel (dB)</strong> is a unit of measurement originally created to express the hearing response of the human ear to various sound levels. It is one-tenth of a Bel. Gain or loss of a circuit is usually expressed in decibels.</p>
-      <div class="formula">dB (voltage) = 20 log(Vout / Vin)
-dB (power)   = 10 log(Pout / Pin)
-antilog      = 10^(dB/10) = Pout/Pin</div>
-      <p><strong>Problem:</strong> Pin = 1 mW, gain = 30 dB. Find Pout.</p>
-      <div class="formula">Pout/Pin = 10^(30/10) = 10^3 = 1000
-Pout = 1000 × 1 mW = 1000 mW = 1 W</div>
+      <p><strong>Decibel (dB)</strong> is a unit of measurement — one-tenth of a Bel. Originally created to express the hearing response of the human ear.</p>
+      <div class="formula">Pin = 1 mW, gain = 30 dB
+Pout = 1000 × 1 mW = 1 W</div>
     </div>
   </div>
 
 </div><!-- end content -->
 </main>
 
+</div><!-- end page-unit1 -->
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: UNIT 2                          -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-unit2">
+
+<header>
+  <div class="header-top">
+    <span class="header-label">ECE / PEC</span>
+    <span class="header-title">Principles of Electronic Communications</span>
+    <span class="header-meta">Unit II · Exam Prep</span>
+  </div>
+  <nav>
+    <a href="#u2-analog">01 Analog Modulation</a>
+    <a href="#u2-am">02 AM</a>
+    <a href="#u2-fm">03 FM</a>
+    <a href="#u2-pam">04 PAM</a>
+    <a href="#u2-pwm">05 PWM</a>
+    <a href="#u2-pcm">06 PCM</a>
+    <a href="#u2-digital">07 Digital Mod</a>
+    <a href="#u2-ask">08 ASK</a>
+    <a href="#u2-fsk">09 FSK</a>
+    <a href="#u2-psk">10 PSK</a>
+    <a href="#u2-qpsk">11 QPSK</a>
+    <a href="#u2-short">12 Short Ans</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Exam Preparation Guide · Unit II</p>
+    <h1 class="hero-heading">Analog &amp;<br><em>Digital</em> Modulation Techniques</h1>
+    <p class="hero-desc">AM, FM, PAM, PWM, PCM — Analog modulation. ASK, FSK, PSK, QPSK — Digital modulation. With block diagrams, waveforms, and complete theory.</p>
+  </div>
+  <div class="hero-right">
+    <div class="topic-grid">
+      <div class="topic-item"><span class="topic-num">01</span>AM Modulation &amp; Demod</div>
+      <div class="topic-item"><span class="topic-num">02</span>FM Modulation &amp; Demod</div>
+      <div class="topic-item"><span class="topic-num">03</span>PAM / PWM / PCM</div>
+      <div class="topic-item"><span class="topic-num">04</span>ASK Modulation</div>
+      <div class="topic-item"><span class="topic-num">05</span>FSK Modulation</div>
+      <div class="topic-item"><span class="topic-num">06</span>PSK / QPSK</div>
+    </div>
+    <div class="priority-strip">
+      <div class="priority-item"><span class="num">5</span><span class="lbl">Priority 1 Qs</span></div>
+      <div class="priority-item"><span class="num">5</span><span class="lbl">Priority 2 Qs</span></div>
+      <div class="priority-item"><span class="num">6</span><span class="lbl">Short Answers</span></div>
+      <div class="priority-item"><span class="num">10</span><span class="lbl">Marks max</span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+<aside>
+  <div class="aside-section">
+    <div class="aside-label">Priority 1 — Long</div>
+    <a href="#u2-analog">Analog Modulation</a>
+    <a href="#u2-am">AM Mod &amp; Demod</a>
+    <a href="#u2-pwm">PWM Mod &amp; Demod</a>
+    <a href="#u2-fsk">FSK Mod &amp; Demod</a>
+    <a href="#u2-pcm">PCM Mod &amp; Demod</a>
+  </div>
+  <div class="aside-section">
+    <div class="aside-label">Priority 2 — Long</div>
+    <a href="#u2-fm">FM Mod &amp; Demod</a>
+    <a href="#u2-pam">PAM Mod &amp; Demod</a>
+    <a href="#u2-ask">ASK Mod &amp; Demod</a>
+    <a href="#u2-psk">PSK Mod &amp; Demod</a>
+    <a href="#u2-qpsk">QPSK Mod &amp; Demod</a>
+  </div>
+  <div class="aside-section">
+    <div class="aside-label">Short Answers</div>
+    <a href="#u2-short">Definitions + Compare</a>
+  </div>
+</aside>
+
+<div class="content">
+
+  <!-- SECTION U2-01: ANALOG MODULATION -->
+  <div class="section-header" id="u2-analog">
+    <span class="section-num">01</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">Analog Modulation and its Types</div>
+    </div>
+  </div>
+  <div class="q-block open">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">Explain about ANALOG modulation and its types</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Analog Modulation</h3>
+      <p>In analog modulation, the <strong>modulating signal is an analog (continuous) signal</strong> and a high-frequency analog carrier (usually a sinusoidal wave) is used. The carrier parameters (amplitude, frequency, or phase) are continuously varied in proportion to the message signal.</p>
+      <p>A sinusoidal carrier: <strong>c(t) = Ac cos(2πfct + φ)</strong> has three parameters that can be varied — amplitude Ac, frequency fc, and phase φ. This gives three types of analog modulation:</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 1.1 — Types of analog modulation</div>
+        <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="250" y="10" width="180" height="34" fill="#0a0a0a"/>
+          <text x="340" y="31" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#fafaf8">Analog Modulation</text>
+          <line x1="340" y1="44" x2="340" y2="64" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="90" y1="64" x2="590" y2="64" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="90" y1="64" x2="90" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="340" y1="64" x2="340" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="590" y1="64" x2="590" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <rect x="30" y="80" width="120" height="34" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="90" y="101" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">AM</text>
+          <rect x="280" y="80" width="120" height="34" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="340" y="101" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">FM</text>
+          <rect x="530" y="80" width="120" height="34" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="590" y="101" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">PM</text>
+          <text x="90" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude varies</text>
+          <text x="90" y="142" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Freq/Phase fixed</text>
+          <text x="340" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Frequency varies</text>
+          <text x="340" y="142" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude fixed</text>
+          <text x="590" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Phase varies</text>
+          <text x="590" y="142" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude fixed</text>
+          <!-- Waveform hints -->
+          <path d="M20,175 Q30,160 40,175 Q50,190 60,175 Q70,160 80,175 Q90,190 100,175 Q110,160 120,175 Q130,190 150,175" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <path d="M270,175 Q278,165 286,175 Q294,185 302,175 Q310,165 318,175 Q368,160 378,175 Q388,185 398,175 Q408,165 418,175" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <path d="M520,175 Q528,167 536,175 Q544,183 552,175 Q560,167 568,170 Q576,173 584,175 Q592,177 600,175 Q608,173 616,175 Q624,177 640,175" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <h4>1. Amplitude Modulation (AM)</h4>
+      <p>The amplitude of the carrier signal is varied proportionally to the amplitude of the message signal. Frequency and phase of carrier remain constant.</p>
+      <div class="formula">s_AM(t) = [Ac + Am·m(t)] × cos(2πfct)
+Modulation Index: μ = Am / Ac   (0 ≤ μ ≤ 1 for no distortion)</div>
+
+      <h4>2. Frequency Modulation (FM)</h4>
+      <p>The frequency of the carrier signal is varied proportionally to the amplitude of the message signal. Amplitude remains constant.</p>
+      <div class="formula">s_FM(t) = Ac cos[2πfct + 2πkf ∫m(t)dt]
+Modulation Index: mf = Δf / fm   where Δf = frequency deviation</div>
+
+      <h4>3. Phase Modulation (PM)</h4>
+      <p>The phase of the carrier signal is varied proportionally to the message signal. Amplitude remains constant. PM and FM together are called <strong>Angle Modulation</strong>.</p>
+      <div class="formula">s_PM(t) = Ac cos[2πfct + kp·m(t)]
+Modulation Index: mp = kp × Am</div>
+
+      <div class="note"><span class="note-label">Key comparison</span>AM is simple but susceptible to noise. FM has better noise immunity and audio quality (used in FM radio broadcasts). PM is used in digital communication systems.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-02: AM -->
+  <div class="section-header" id="u2-am">
+    <span class="section-num">02</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">AM Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">With help of a neat diagram explain the working of AM modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>AM Modulation</h3>
+      <p><strong>Amplitude Modulation (AM)</strong> is the process of varying the amplitude of a high-frequency carrier signal in accordance with the instantaneous amplitude of the low-frequency modulating (message) signal, while the frequency and phase of the carrier remain constant.</p>
+      <div class="formula">s(t) = [Ac + Am·cosωmt] × cosωct
+     = Ac·cosωct + (μAc/2)·cos(ωc+ωm)t + (μAc/2)·cos(ωc–ωm)t
+
+Where:
+  Ac = carrier amplitude
+  Am = message amplitude
+  μ  = Am/Ac = modulation index
+  ωc = carrier frequency
+  ωm = message frequency</div>
+      <h4>AM Modulator Block Diagram</h4>
+      <div class="diagram">
+        <div class="diagram-label">Fig 2.1 — AM Modulator</div>
+        <svg viewBox="0 0 680 140" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="am1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="20" y="28" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="75" y="44" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Message Signal</text>
+          <text x="75" y="57" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">m(t)</text>
+          <rect x="20" y="88" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="75" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Carrier Oscillator</text>
+          <text x="75" y="117" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Ac·cos(ωct)</text>
+          <rect x="200" y="50" width="100" height="36" fill="#0a0a0a"/>
+          <text x="250" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Balanced</text>
+          <text x="250" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Modulator</text>
+          <rect x="370" y="50" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="420" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Bandpass</text>
+          <text x="420" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Filter</text>
+          <rect x="540" y="50" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="600" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">AM Signal</text>
+          <text x="600" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">s(t)</text>
+          <line x1="130" y1="46" x2="198" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am1)"/>
+          <line x1="130" y1="106" x2="198" y2="75" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am1)"/>
+          <line x1="300" y1="68" x2="368" y2="68" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am1)"/>
+          <line x1="470" y1="68" x2="538" y2="68" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am1)"/>
+        </svg>
+      </div>
+
+      <h3>AM Waveforms</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 2.2 — AM waveforms (message, carrier, modulated)</div>
+        <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+          <!-- Message signal -->
+          <text x="12" y="26" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">m(t)</text>
+          <line x1="40" y1="30" x2="660" y2="30" stroke="#d0cec8" stroke-width="0.5"/>
+          <path d="M40,30 Q120,5 200,30 Q280,55 360,30 Q440,5 520,30 Q600,55 660,30" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Carrier signal -->
+          <text x="12" y="80" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">c(t)</text>
+          <line x1="40" y1="80" x2="660" y2="80" stroke="#d0cec8" stroke-width="0.5"/>
+          <path d="M40,80 Q52,65 64,80 Q76,95 88,80 Q100,65 112,80 Q124,95 136,80 Q148,65 160,80 Q172,95 184,80 Q196,65 208,80 Q220,95 232,80 Q244,65 256,80 Q268,95 280,80 Q292,65 304,80 Q316,95 328,80 Q340,65 352,80 Q364,95 376,80 Q388,65 400,80 Q412,95 424,80 Q436,65 448,80 Q460,95 472,80 Q484,65 496,80 Q508,95 520,80 Q532,65 544,80 Q556,95 568,80 Q580,65 592,80 Q604,95 616,80 Q628,65 640,80 Q652,95 660,80" fill="none" stroke="#5a5a5a" stroke-width="1.2"/>
+          <!-- AM signal -->
+          <text x="12" y="150" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">s(t)</text>
+          <line x1="40" y1="155" x2="660" y2="155" stroke="#d0cec8" stroke-width="0.5"/>
+          <!-- Upper envelope -->
+          <path d="M40,155 Q120,122 200,155 Q280,188 360,155 Q440,122 520,155 Q600,188 660,155" fill="none" stroke="#5a5a5a" stroke-width="1" stroke-dasharray="4 2"/>
+          <!-- Lower envelope -->
+          <path d="M40,155 Q120,188 200,155 Q280,122 360,155 Q440,188 520,155 Q600,122 660,155" fill="none" stroke="#5a5a5a" stroke-width="1" stroke-dasharray="4 2"/>
+          <!-- AM modulated wave -->
+          <path d="M40,155 Q52,140 64,155 Q76,168 88,155 Q100,141 112,155 Q124,167 136,155 Q148,140 160,155 Q172,169 184,155 Q196,142 208,155 Q220,168 232,155 Q244,143 256,155 Q268,167 280,155 Q292,143 304,155 Q316,167 328,155 Q340,142 352,155 Q364,168 376,155 Q388,144 400,155 Q412,166 424,155 Q436,143 448,155 Q460,167 472,155 Q484,144 496,155 Q508,166 520,155 Q532,145 544,155 Q556,165 568,155 Q580,145 592,155 Q604,165 616,155 Q628,146 640,155 Q652,164 660,155" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <text x="12" y="198" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">--- envelope</text>
+        </svg>
+      </div>
+
+      <h3>AM Demodulation (Envelope Detector)</h3>
+      <p>The most common method of AM demodulation is the <strong>envelope detector</strong>. It extracts the envelope of the AM signal, which is the original message signal.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 2.3 — AM Envelope Detector (Demodulator)</div>
+        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="am2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="32" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="60" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">AM Signal</text>
+          <text x="60" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">s(t)</text>
+          <!-- Diode symbol -->
+          <rect x="175" y="32" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="215" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Diode</text>
+          <rect x="320" y="32" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="360" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">RC Low</text>
+          <text x="360" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Pass Filter</text>
+          <rect x="465" y="32" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="505" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">DC Block</text>
+          <text x="505" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Capacitor</text>
+          <rect x="560" y="32" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="615" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Message</text>
+          <text x="615" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">m(t) recovered</text>
+          <line x1="110" y1="50" x2="173" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am2)"/>
+          <line x1="255" y1="50" x2="318" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am2)"/>
+          <line x1="400" y1="50" x2="463" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am2)"/>
+          <line x1="545" y1="50" x2="558" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#am2)"/>
+        </svg>
+      </div>
+
+      <h3>Bandwidth of AM Signal</h3>
+      <div class="formula">AM Signal contains 3 components:
+  1. Carrier:       Ac at fc
+  2. Upper Sideband: (μAc/2) at fc + fm
+  3. Lower Sideband: (μAc/2) at fc – fm
+
+Bandwidth BW = 2 × fm (twice the highest message frequency)
+
+Power:
+  Total Power = Pc(1 + μ²/2)
+  Pc = Ac²/2R   (carrier power)</div>
+
+      <div class="note"><span class="note-label">Types of AM</span>DSB-FC (Double Sideband Full Carrier) — standard AM. DSB-SC (Suppressed Carrier) — carrier suppressed, more efficient. SSB (Single Sideband) — only one sideband, most efficient, used in HF comm.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-03: FM -->
+  <div class="section-header" id="u2-fm">
+    <span class="section-num">03</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 10 marks</div>
+      <div class="section-title">FM Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">With help of a neat diagram explain the working of FM modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>FM Modulation</h3>
+      <p><strong>Frequency Modulation (FM)</strong> is the process of varying the instantaneous frequency of the carrier signal in proportion to the amplitude of the modulating signal. The amplitude of the carrier remains constant.</p>
+      <div class="formula">s_FM(t) = Ac cos[2πfct + 2πkf ∫₀ᵗ m(τ)dτ]
+
+For sinusoidal m(t) = Am cos(2πfmt):
+  s_FM(t) = Ac cos[2πfct + mf sin(2πfmt)]
+
+Where:
+  mf = Δf / fm = modulation index (FM)
+  Δf = kf × Am = maximum frequency deviation
+  fm = message signal frequency</div>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 3.1 — FM Modulator using VCO</div>
+        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="fm1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="20" y="32" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="75" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Message m(t)</text>
+          <rect x="200" y="32" width="130" height="36" fill="#0a0a0a"/>
+          <text x="265" y="47" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Voltage Controlled</text>
+          <text x="265" y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Oscillator (VCO)</text>
+          <rect x="400" y="32" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="460" y="47" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">RF Amplifier</text>
+          <rect x="590" y="32" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="630" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">FM Output</text>
+          <line x1="130" y1="50" x2="198" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm1)"/>
+          <line x1="330" y1="50" x2="398" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm1)"/>
+          <line x1="520" y1="50" x2="588" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm1)"/>
+        </svg>
+      </div>
+
+      <h3>FM Demodulation (Discriminator Method)</h3>
+      <p>FM demodulation converts frequency variations back to amplitude variations. The most common method is the <strong>FM Discriminator (or Frequency Discriminator)</strong>.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 3.2 — FM Demodulator (Discriminator)</div>
+        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="fm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="32" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="55" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">FM Signal</text>
+          <rect x="165" y="32" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="210" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Limiter</text>
+          <text x="210" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">(remove AM noise)</text>
+          <rect x="320" y="32" width="110" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="375" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Discriminator</text>
+          <text x="375" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">(f → amplitude)</text>
+          <rect x="495" y="32" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="540" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Low Pass</text>
+          <text x="540" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Filter</text>
+          <rect x="596" y="32" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="636" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">m(t) out</text>
+          <line x1="100" y1="50" x2="163" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm2)"/>
+          <line x1="255" y1="50" x2="318" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm2)"/>
+          <line x1="430" y1="50" x2="493" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm2)"/>
+          <line x1="585" y1="50" x2="594" y2="50" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fm2)"/>
+        </svg>
+      </div>
+
+      <h3>Bandwidth of FM (Carson's Rule)</h3>
+      <div class="formula">BW = 2(Δf + fm) = 2fm(mf + 1)   [Carson's Rule]
+
+Where:
+  Δf = maximum frequency deviation
+  fm = highest message frequency
+  mf = Δf/fm = FM modulation index
+
+Narrowband FM (NBFM): mf &lt; 1, BW ≈ 2fm (same as AM)
+Wideband FM  (WBFM): mf >> 1, BW ≈ 2Δf</div>
+      <div class="note"><span class="note-label">FM Advantages over AM</span>Better noise immunity (limiter removes AM-type noise). Constant transmitter power. Better audio fidelity. Used in: FM radio (88–108 MHz VHF band).</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-04: PAM -->
+  <div class="section-header" id="u2-pam">
+    <span class="section-num">04</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 10 marks</div>
+      <div class="section-title">PAM Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">With help of a neat diagram explain the working of PAM modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Pulse Amplitude Modulation (PAM)</h3>
+      <p><strong>PAM</strong> is a form of signal modulation where the amplitude of a series of equally-spaced pulses is varied in accordance with the instantaneous amplitude of the analog message signal. PAM is the simplest form of pulse modulation and is the basis for PCM.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 4.1 — PAM Modulator</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pam1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="36" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="60" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Analog</text>
+          <text x="60" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Message m(t)</text>
+          <rect x="180" y="36" width="120" height="36" fill="#0a0a0a"/>
+          <text x="240" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Sampling</text>
+          <text x="240" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Circuit (Switch)</text>
+          <rect x="180" y="84" width="120" height="22" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="240" y="99" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Pulse Generator (fs)</text>
+          <line x1="240" y1="84" x2="240" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam1)"/>
+          <rect x="370" y="36" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="430" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Sample &amp; Hold</text>
+          <text x="430" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Circuit</text>
+          <rect x="555" y="36" width="115" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="612" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">PAM Output</text>
+          <line x1="110" y1="54" x2="178" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam1)"/>
+          <line x1="300" y1="54" x2="368" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam1)"/>
+          <line x1="490" y1="54" x2="553" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam1)"/>
+        </svg>
+      </div>
+
+      <h3>PAM Waveform</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 4.2 — PAM waveforms</div>
+        <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Message signal -->
+          <text x="8" y="20" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">m(t)</text>
+          <line x1="30" y1="20" x2="660" y2="20" stroke="#e0e0e0" stroke-width="0.5"/>
+          <path d="M30,20 Q150,2 270,20 Q390,38 510,20 Q590,8 660,20" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <!-- PAM pulses below -->
+          <text x="8" y="80" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">PAM</text>
+          <line x1="30" y1="130" x2="660" y2="130" stroke="#e0e0e0" stroke-width="0.5"/>
+          <rect x="40" y="103" width="18" height="27" fill="#0a0a0a"/>
+          <rect x="90" y="98" width="18" height="32" fill="#0a0a0a"/>
+          <rect x="140" y="93" width="18" height="37" fill="#0a0a0a"/>
+          <rect x="190" y="90" width="18" height="40" fill="#0a0a0a"/>
+          <rect x="240" y="93" width="18" height="37" fill="#0a0a0a"/>
+          <rect x="290" y="100" width="18" height="30" fill="#0a0a0a"/>
+          <rect x="340" y="108" width="18" height="22" fill="#0a0a0a"/>
+          <rect x="390" y="112" width="18" height="18" fill="#0a0a0a"/>
+          <rect x="440" y="108" width="18" height="22" fill="#0a0a0a"/>
+          <rect x="490" y="103" width="18" height="27" fill="#0a0a0a"/>
+          <rect x="540" y="99" width="18" height="31" fill="#0a0a0a"/>
+          <rect x="590" y="96" width="18" height="34" fill="#0a0a0a"/>
+          <rect x="635" y="99" width="18" height="31" fill="#0a0a0a"/>
+          <text x="8" y="148" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">fs → sampling freq</text>
+        </svg>
+      </div>
+
+      <h3>PAM Demodulation</h3>
+      <p>PAM demodulation recovers the original analog signal from the sampled pulses using a <strong>Low Pass Filter (LPF)</strong>.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 4.3 — PAM Demodulator</div>
+        <svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pam2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="22" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="65" y="38" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">PAM Signal</text>
+          <rect x="190" y="22" width="130" height="36" fill="#0a0a0a"/>
+          <text x="255" y="38" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Low Pass Filter</text>
+          <text x="255" y="51" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">fc = fm(max)</text>
+          <rect x="390" y="22" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="450" y="38" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Amplifier</text>
+          <rect x="575" y="22" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="625" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">m(t) recovered</text>
+          <line x1="120" y1="40" x2="188" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam2)"/>
+          <line x1="320" y1="40" x2="388" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam2)"/>
+          <line x1="510" y1="40" x2="573" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pam2)"/>
+        </svg>
+      </div>
+      <div class="formula">Nyquist Sampling Theorem: fs ≥ 2 × fm(max)
+To avoid aliasing, sampling frequency must be at least twice the highest message frequency.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-05: PWM -->
+  <div class="section-header" id="u2-pwm">
+    <span class="section-num">05</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">PWM Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">With help of a neat diagram explain the working of PWM modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Pulse Width Modulation (PWM)</h3>
+      <p><strong>PWM</strong> is a type of pulse modulation in which the <strong>width (duration) of the pulses</strong> is varied in accordance with the instantaneous amplitude of the message signal. The amplitude and position of the pulses remain constant.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 5.1 — PWM Modulator using comparator</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pwm1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="26" width="100" height="34" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="60" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Message m(t)</text>
+          <rect x="10" y="78" width="100" height="24" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="60" y="94" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Sawtooth Gen</text>
+          <rect x="180" y="40" width="110" height="36" fill="#0a0a0a"/>
+          <text x="235" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Comparator</text>
+          <rect x="360" y="40" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="420" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Monostable</text>
+          <text x="420" y="69" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Multivibrator</text>
+          <rect x="550" y="40" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="610" y="60" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">PWM Output</text>
+          <line x1="110" y1="43" x2="178" y2="52" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm1)"/>
+          <line x1="110" y1="90" x2="178" y2="65" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm1)"/>
+          <line x1="290" y1="58" x2="358" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm1)"/>
+          <line x1="480" y1="58" x2="548" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm1)"/>
+        </svg>
+      </div>
+
+      <h3>PWM Waveforms</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 5.2 — PWM waveforms</div>
+        <svg viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg">
+          <!-- Message signal -->
+          <text x="8" y="20" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">m(t)</text>
+          <line x1="30" y1="20" x2="660" y2="20" stroke="#e0e0e0" stroke-width="0.5"/>
+          <path d="M30,20 Q150,2 280,20 Q400,38 530,20 Q600,10 660,20" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <!-- PWM signal -->
+          <text x="8" y="85" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">PWM</text>
+          <!-- Wide pulses where m(t) is high, narrow where low -->
+          <line x1="30" y1="140" x2="660" y2="140" stroke="#e0e0e0" stroke-width="0.5"/>
+          <rect x="38" y="88" width="35" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="115" y="88" width="42" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="198" y="88" width="52" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="295" y="88" width="44" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="388" y="88" width="32" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="467" y="88" width="40" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <rect x="554" y="88" width="50" height="52" fill="none" stroke="#0a0a0a" stroke-width="1.5"/>
+          <text x="100" y="165" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Narrow width = low amplitude</text>
+          <text x="480" y="165" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Wide width = high amplitude</text>
+        </svg>
+      </div>
+
+      <h3>PWM Demodulation</h3>
+      <p>The PWM signal is demodulated by passing it through an integrator circuit followed by a LPF:</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 5.3 — PWM Demodulator</div>
+        <svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pwm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="22" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="60" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">PWM Signal</text>
+          <rect x="178" y="22" width="110" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="233" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Integrator</text>
+          <rect x="356" y="22" width="110" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="411" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">LPF</text>
+          <rect x="534" y="22" width="130" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="599" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">m(t) recovered</text>
+          <line x1="110" y1="40" x2="176" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm2)"/>
+          <line x1="288" y1="40" x2="354" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm2)"/>
+          <line x1="466" y1="40" x2="532" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pwm2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">PWM vs PAM</span>PWM is less susceptible to noise than PAM because amplitude is constant (noise changes amplitude, not width). PWM is widely used in power electronics and motor control.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-06: PCM -->
+  <div class="section-header" id="u2-pcm">
+    <span class="section-num">06</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">PCM Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">With help of a neat diagram explain the working of PCM modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Pulse Code Modulation (PCM)</h3>
+      <p><strong>PCM</strong> is a digital scheme in which the amplitude of an analog signal is sampled at regular intervals, quantized, and then converted into a binary (digital) code for transmission. PCM is the most common method for converting analog information into digital form.</p>
+      <h3>Three Steps of PCM</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 6.1 — PCM Modulator (Three steps)</div>
+        <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pcm1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="42" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="55" y="58" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Analog</text>
+          <text x="55" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Signal m(t)</text>
+          <rect x="165" y="30" width="110" height="60" fill="#0a0a0a"/>
+          <text x="220" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">SAMPLING</text>
+          <text x="220" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">fs ≥ 2fm</text>
+          <text x="220" y="76" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">→ PAM pulses</text>
+          <rect x="340" y="30" width="110" height="60" fill="#0a0a0a"/>
+          <text x="395" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">QUANTIZING</text>
+          <text x="395" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">Assign discrete</text>
+          <text x="395" y="76" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">levels (2ⁿ levels)</text>
+          <rect x="515" y="30" width="110" height="60" fill="#0a0a0a"/>
+          <text x="570" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">ENCODING</text>
+          <text x="570" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">Convert to</text>
+          <text x="570" y="76" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">binary code</text>
+          <line x1="100" y1="60" x2="163" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm1)"/>
+          <line x1="275" y1="60" x2="338" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm1)"/>
+          <line x1="450" y1="60" x2="513" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm1)"/>
+          <text x="40" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Step 1</text>
+          <text x="220" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Step 2</text>
+          <text x="395" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Step 3</text>
+        </svg>
+      </div>
+
+      <h4>Step 1 — Sampling</h4>
+      <p>The analog signal is sampled at regular intervals. According to the <strong>Nyquist Theorem</strong>: sampling rate fs ≥ 2 × fm(max) to avoid aliasing.</p>
+
+      <h4>Step 2 — Quantizing</h4>
+      <p>Each sampled amplitude is rounded off to the nearest of a set of discrete levels. With n-bit encoding, we get <strong>2ⁿ quantization levels</strong>. The error between actual and quantized value is called <strong>quantization noise</strong>.</p>
+      <div class="formula">Number of levels = 2ⁿ  (n = number of bits)
+Quantization step = (max – min) / (2ⁿ – 1)
+SNR ≈ 6n dB  (each added bit improves SNR by ~6 dB)</div>
+
+      <h4>Step 3 — Encoding</h4>
+      <p>Each quantized level is encoded as a binary number (n-bit code). The encoded bits are transmitted as a serial bit stream.</p>
+
+      <h3>PCM Demodulation</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 6.2 — PCM Demodulator</div>
+        <svg viewBox="0 0 680 90" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pcm2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="27" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="55" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">PCM Binary</text>
+          <text x="55" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Signal</text>
+          <rect x="165" y="27" width="110" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="220" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Decoder (DAC)</text>
+          <rect x="340" y="27" width="110" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="395" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Reconstruction</text>
+          <text x="395" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Filter (LPF)</text>
+          <rect x="515" y="27" width="150" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="590" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">m(t) recovered</text>
+          <line x1="100" y1="45" x2="163" y2="45" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm2)"/>
+          <line x1="275" y1="45" x2="338" y2="45" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm2)"/>
+          <line x1="450" y1="45" x2="513" y2="45" stroke="#0a0a0a" stroke-width="1" marker-end="url(#pcm2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">PCM Bit Rate</span>Bit Rate = fs × n bits/sample. Example: Audio CD: fs = 44.1 kHz, n = 16 bits → Bit Rate = 44.1k × 16 = 705.6 kbps per channel.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-07: DIGITAL MODULATION OVERVIEW -->
+  <div class="section-header" id="u2-digital">
+    <span class="section-num">07</span>
+    <div class="section-info">
+      <div class="section-tag">Overview · Digital Modulation</div>
+      <div class="section-title">Digital Modulation Techniques — Overview</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Overview</span>
+      <span class="q-question">Introduction to digital modulation — ASK, FSK, PSK, QPSK</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Digital Modulation</h3>
+      <p>In digital modulation, the modulating signal is in <strong>digital (binary) form</strong>. The carrier is a sinusoidal signal. Binary data (0s and 1s) control the carrier parameters.</p>
+      <div class="diagram">
+        <div class="diagram-label">Fig 7.1 — Digital modulation types</div>
+        <svg viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="230" y="10" width="220" height="36" fill="#0a0a0a"/>
+          <text x="340" y="32" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#fafaf8">Digital Modulation</text>
+          <line x1="340" y1="46" x2="340" y2="66" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="80" y1="66" x2="600" y2="66" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="80" y1="66" x2="80" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="230" y1="66" x2="230" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="450" y1="66" x2="450" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="600" y1="66" x2="600" y2="80" stroke="#0a0a0a" stroke-width="1"/>
+          <rect x="20" y="80" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="80" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">ASK</text>
+          <rect x="170" y="80" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="230" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">FSK</text>
+          <rect x="390" y="80" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="450" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">PSK</text>
+          <rect x="540" y="80" width="120" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="600" y="102" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">QPSK</text>
+          <text x="80" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude shift</text>
+          <text x="230" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Frequency shift</text>
+          <text x="450" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Phase shift</text>
+          <text x="600" y="132" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Quadrature phase</text>
+          <text x="80" y="144" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">keying</text>
+          <text x="230" y="144" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">keying</text>
+          <text x="450" y="144" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">keying</text>
+          <text x="600" y="144" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">shift keying</text>
+          <!-- Waveform hints row -->
+          <text x="40" y="168" font-family="IBM Plex Mono" font-size="7" fill="#5a5a5a">1 0 1 0 → 2 amp levels</text>
+          <text x="190" y="168" font-family="IBM Plex Mono" font-size="7" fill="#5a5a5a">1 → f1, 0 → f2</text>
+          <text x="400" y="168" font-family="IBM Plex Mono" font-size="7" fill="#5a5a5a">1 → 0°, 0 → 180°</text>
+          <text x="548" y="168" font-family="IBM Plex Mono" font-size="7" fill="#5a5a5a">2 bits → 4 phases</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-08: ASK -->
+  <div class="section-header" id="u2-ask">
+    <span class="section-num">08</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 10 marks</div>
+      <div class="section-title">ASK Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">With help of a neat diagram explain the working of ASK modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Amplitude Shift Keying (ASK)</h3>
+      <p><strong>ASK</strong> is a digital modulation technique where the amplitude of a sinusoidal carrier is varied to represent binary data. For binary ASK (OOK — On-Off Keying): bit '1' → carrier present (amplitude = Ac), bit '0' → carrier absent (amplitude = 0).</p>
+      <div class="formula">s_ASK(t) = A(t) × cos(2πfct)
+Where A(t) = Ac for bit '1', A(t) = 0 for bit '0'   [OOK]
+
+For M-ary ASK: A(t) takes M different amplitude levels</div>
+      <div class="diagram">
+        <div class="diagram-label">Fig 8.1 — ASK Modulator</div>
+        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="ask1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="30" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="60" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Binary Data</text>
+          <text x="60" y="59" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">1 0 1 1 0...</text>
+          <rect x="10" y="76" width="100" height="18" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="60" y="89" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Carrier cos(2πfct)</text>
+          <rect x="180" y="30" width="110" height="36" fill="#0a0a0a"/>
+          <text x="235" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Product</text>
+          <text x="235" y="59" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Modulator (×)</text>
+          <rect x="360" y="30" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="415" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">BPF</text>
+          <rect x="540" y="30" width="130" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="605" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">ASK Signal</text>
+          <line x1="110" y1="48" x2="178" y2="48" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask1)"/>
+          <line x1="110" y1="85" x2="178" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask1)"/>
+          <line x1="290" y1="48" x2="358" y2="48" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask1)"/>
+          <line x1="470" y1="48" x2="538" y2="48" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask1)"/>
+        </svg>
+      </div>
+      <div class="diagram">
+        <div class="diagram-label">Fig 8.2 — ASK waveform</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <!-- Data bits -->
+          <text x="8" y="20" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Data</text>
+          <text x="55" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">1</text>
+          <text x="145" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">0</text>
+          <text x="235" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">1</text>
+          <text x="325" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">1</text>
+          <text x="415" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">0</text>
+          <text x="505" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">1</text>
+          <text x="595" y="20" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">0</text>
+          <!-- ASK waveform -->
+          <text x="8" y="60" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">ASK</text>
+          <line x1="30" y1="75" x2="660" y2="75" stroke="#e0e0e0" stroke-width="0.5"/>
+          <!-- Bit 1 carrier burst -->
+          <path d="M35,75 Q40,50 45,75 Q50,100 55,75 Q60,50 65,75 Q70,100 75,75 Q80,50 85,75 Q90,100 95,75 Q100,50 105,75 Q110,100 115,75 Q120,50 125,75" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0 silence -->
+          <line x1="125" y1="75" x2="215" y2="75" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 1 carrier burst -->
+          <path d="M215,75 Q220,50 225,75 Q230,100 235,75 Q240,50 245,75 Q250,100 255,75 Q260,50 265,75 Q270,100 275,75 Q280,50 285,75 Q290,100 295,75 Q300,50 305,75" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 1 again -->
+          <path d="M305,75 Q310,50 315,75 Q320,100 325,75 Q330,50 335,75 Q340,100 345,75 Q350,50 355,75 Q360,100 365,75 Q370,50 375,75 Q380,100 385,75 Q390,50 395,75" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0 silence -->
+          <line x1="395" y1="75" x2="485" y2="75" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 1 burst -->
+          <path d="M485,75 Q490,50 495,75 Q500,100 505,75 Q510,50 515,75 Q520,100 525,75 Q530,50 535,75 Q540,100 545,75 Q550,50 555,75 Q560,100 565,75" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0 silence -->
+          <line x1="565" y1="75" x2="660" y2="75" stroke="#0a0a0a" stroke-width="2"/>
+          <text x="100" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Carrier present = 1</text>
+          <text x="440" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Carrier absent = 0</text>
+        </svg>
+      </div>
+      <h3>ASK Demodulation</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 8.3 — ASK Demodulator (Envelope Detection)</div>
+        <svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="ask2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="22" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="55" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">ASK Signal</text>
+          <rect x="165" y="22" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="210" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Envelope Det</text>
+          <rect x="320" y="22" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="365" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Threshold Det</text>
+          <rect x="475" y="22" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="520" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Decision</text>
+          <rect x="580" y="22" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="625" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Binary Output</text>
+          <line x1="100" y1="40" x2="163" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask2)"/>
+          <line x1="255" y1="40" x2="318" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask2)"/>
+          <line x1="410" y1="40" x2="473" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask2)"/>
+          <line x1="565" y1="40" x2="578" y2="40" stroke="#0a0a0a" stroke-width="1" marker-end="url(#ask2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">ASK Limitations</span>ASK is very susceptible to noise and interference. Used mainly in optical fiber communication and RFID. Not suitable for wireless comm where noise is significant.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-09: FSK -->
+  <div class="section-header" id="u2-fsk">
+    <span class="section-num">09</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">FSK Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">With help of a neat diagram explain the working of FSK modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Frequency Shift Keying (FSK)</h3>
+      <p><strong>FSK</strong> is a digital modulation technique where the frequency of the carrier is switched between two values to represent binary data. The amplitude remains constant.</p>
+      <div class="formula">s_FSK(t) = Ac cos(2πf1t)  for binary '1'
+s_FSK(t) = Ac cos(2πf2t)  for binary '0'
+
+Where f1 > f2 (or f1 ≠ f2)
+Frequency deviation: Δf = (f1 – f2) / 2
+Bandwidth: BW = 2(Δf + fm) = f1 – f2 + 2fm</div>
+      <div class="diagram">
+        <div class="diagram-label">Fig 9.1 — FSK Modulator</div>
+        <svg viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="fsk1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="46" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="65" y="68" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Binary Data</text>
+          <!-- Two oscillators -->
+          <rect x="195" y="18" width="120" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="255" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Oscillator 1</text>
+          <text x="255" y="47" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">f1 (for '1')</text>
+          <rect x="195" y="76" width="120" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="255" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Oscillator 2</text>
+          <text x="255" y="105" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">f2 (for '0')</text>
+          <!-- Switch -->
+          <rect x="390" y="46" width="100" height="36" fill="#0a0a0a"/>
+          <text x="440" y="68" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">MUX/Switch</text>
+          <!-- Output -->
+          <rect x="560" y="46" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="615" y="68" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">FSK Output</text>
+          <line x1="120" y1="64" x2="193" y2="36" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk1)"/>
+          <line x1="120" y1="64" x2="193" y2="93" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk1)"/>
+          <line x1="315" y1="36" x2="388" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk1)"/>
+          <line x1="315" y1="94" x2="388" y2="70" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk1)"/>
+          <line x1="490" y1="64" x2="558" y2="64" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk1)"/>
+          <text x="148" y="38" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">bit=1</text>
+          <text x="148" y="98" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">bit=0</text>
+        </svg>
+      </div>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 9.2 — FSK waveform (1→high freq, 0→low freq)</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <text x="8" y="18" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Data:</text>
+          <text x="55" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="145" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <text x="235" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="325" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="415" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <text x="505" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <line x1="30" y1="65" x2="660" y2="65" stroke="#e0e0e0" stroke-width="0.5"/>
+          <!-- Bit 1: high freq wave -->
+          <path d="M35,65 Q41,48 47,65 Q53,82 59,65 Q65,48 71,65 Q77,82 83,65 Q89,48 95,65 Q101,82 107,65 Q113,48 119,65 Q125,82 125,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0: low freq wave -->
+          <path d="M125,65 Q145,42 165,65 Q185,88 205,65 Q215,50 215,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 1: high freq -->
+          <path d="M215,65 Q221,48 227,65 Q233,82 239,65 Q245,48 251,65 Q257,82 263,65 Q269,48 275,65 Q281,82 287,65 Q293,48 299,65 Q305,82 305,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 1 again -->
+          <path d="M305,65 Q311,48 317,65 Q323,82 329,65 Q335,48 341,65 Q347,82 353,65 Q359,48 365,65 Q371,82 377,65 Q383,48 389,65 Q395,82 395,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0 -->
+          <path d="M395,65 Q415,42 435,65 Q455,88 475,65 Q485,50 485,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Bit 0 -->
+          <path d="M485,65 Q505,42 525,65 Q545,88 565,65 Q575,50 575,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <text x="80" y="95" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">f1 (high) = bit 1</text>
+          <text x="450" y="95" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">f2 (low) = bit 0</text>
+        </svg>
+      </div>
+
+      <h3>FSK Demodulation</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 9.3 — FSK Demodulator</div>
+        <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="fsk2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="42" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="50" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">FSK Signal</text>
+          <!-- Two BPFs -->
+          <rect x="158" y="14" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="203" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">BPF at f1</text>
+          <text x="203" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">(pass bit 1)</text>
+          <rect x="158" y="70" width="90" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="203" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">BPF at f2</text>
+          <text x="203" y="99" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">(pass bit 0)</text>
+          <!-- Envelope detectors -->
+          <rect x="316" y="14" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="356" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Env. Det 1</text>
+          <rect x="316" y="70" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/><text x="356" y="91" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Env. Det 2</text>
+          <!-- Comparator -->
+          <rect x="464" y="42" width="80" height="36" fill="#0a0a0a"/>
+          <text x="504" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#fafaf8">Comparator</text>
+          <!-- Output -->
+          <rect x="600" y="42" width="70" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="635" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Binary Out</text>
+          <line x1="90" y1="60" x2="156" y2="32" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="90" y1="60" x2="156" y2="88" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="248" y1="32" x2="314" y2="32" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="248" y1="88" x2="314" y2="88" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="396" y1="32" x2="462" y2="55" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="396" y1="88" x2="462" y2="65" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+          <line x1="544" y1="60" x2="598" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#fsk2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">FSK Applications</span>Better noise immunity than ASK. Used in: Caller ID systems, Bluetooth, older modems (Bell 103 modem), RFID, paging systems.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-10: PSK -->
+  <div class="section-header" id="u2-psk">
+    <span class="section-num">10</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 10 marks</div>
+      <div class="section-title">PSK Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">With help of a neat diagram explain the working of PSK modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Phase Shift Keying (PSK)</h3>
+      <p><strong>PSK</strong> (Binary Phase Shift Keying — BPSK) is a digital modulation technique where the <strong>phase</strong> of the carrier is shifted to represent binary data. Amplitude and frequency remain constant.</p>
+      <div class="formula">s_BPSK(t) = Ac cos(2πfct + 0°)   for bit '1'
+s_BPSK(t) = Ac cos(2πfct + 180°) for bit '0'
+
+Equivalently:
+  bit '1' → +Ac cos(2πfct)
+  bit '0' → −Ac cos(2πfct)</div>
+      <div class="diagram">
+        <div class="diagram-label">Fig 10.1 — BPSK Modulator</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="psk1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="36" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="65" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Binary Data (NRZ)</text>
+          <text x="65" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">+V=1, –V=0</text>
+          <rect x="10" y="84" width="110" height="20" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="65" y="98" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Carrier oscillator</text>
+          <rect x="195" y="36" width="120" height="36" fill="#0a0a0a"/>
+          <text x="255" y="52" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Balanced</text>
+          <text x="255" y="65" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Modulator (×)</text>
+          <rect x="390" y="36" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="445" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">BPF</text>
+          <rect x="565" y="36" width="110" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="620" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">BPSK Output</text>
+          <line x1="120" y1="54" x2="193" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk1)"/>
+          <line x1="120" y1="93" x2="193" y2="64" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk1)"/>
+          <line x1="315" y1="54" x2="388" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk1)"/>
+          <line x1="500" y1="54" x2="563" y2="54" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk1)"/>
+        </svg>
+      </div>
+      <div class="diagram">
+        <div class="diagram-label">Fig 10.2 — BPSK waveform (phase reverses at bit transitions)</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg">
+          <text x="8" y="18" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Data:</text>
+          <text x="55" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="165" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <text x="275" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <text x="385" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="495" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">1</text>
+          <text x="595" y="18" font-family="IBM Plex Mono" font-size="10" font-weight="bold" fill="#0a0a0a">0</text>
+          <line x1="30" y1="65" x2="660" y2="65" stroke="#e0e0e0" stroke-width="0.5"/>
+          <!-- Bit 1: 0° phase -->
+          <path d="M35,65 Q44,45 53,65 Q62,85 71,65 Q80,45 89,65 Q98,85 107,65 Q116,45 125,65 Q134,85 143,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <!-- Vertical line - phase transition -->
+          <line x1="143" y1="45" x2="143" y2="85" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- Bit 0: 180° phase -->
+          <path d="M143,65 Q152,85 161,65 Q170,45 179,65 Q188,85 197,65 Q206,45 215,65 Q224,85 233,65 Q242,45 251,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <line x1="251" y1="45" x2="251" y2="85" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- Bit 0 continued -->
+          <path d="M251,65 Q260,85 269,65 Q278,45 287,65 Q296,85 305,65 Q314,45 323,65 Q332,85 341,65 Q350,45 359,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <line x1="359" y1="45" x2="359" y2="85" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- Bit 1: 0° phase -->
+          <path d="M359,65 Q368,45 377,65 Q386,85 395,65 Q404,45 413,65 Q422,85 431,65 Q440,45 449,65 Q458,85 467,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <line x1="467" y1="45" x2="467" y2="85" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- Bit 1 -->
+          <path d="M467,65 Q476,45 485,65 Q494,85 503,65 Q512,45 521,65 Q530,85 539,65 Q548,45 557,65 Q566,85 575,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <line x1="575" y1="45" x2="575" y2="85" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- Bit 0: 180° -->
+          <path d="M575,65 Q584,85 593,65 Q602,45 611,65 Q620,85 629,65 Q638,45 647,65 Q656,85 660,65" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+          <text x="100" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">0° phase = bit 1</text>
+          <text x="480" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">180° phase = bit 0</text>
+          <text x="300" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#c0392b">| phase reversal</text>
+        </svg>
+      </div>
+      <h3>PSK (BPSK) Demodulation — Coherent Detection</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 10.3 — BPSK Coherent Demodulator</div>
+        <svg viewBox="0 0 680 90" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="psk2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="26" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/><text x="50" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">BPSK Signal</text>
+          <rect x="155" y="26" width="100" height="36" fill="#0a0a0a"/>
+          <text x="205" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#fafaf8">Coherent Det</text>
+          <text x="205" y="55" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">(×) + LPF</text>
+          <rect x="320" y="26" width="100" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="370" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Integrator</text>
+          <text x="370" y="55" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">(bit period T)</text>
+          <rect x="480" y="26" width="100" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="530" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Threshold Det</text>
+          <text x="530" y="55" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">if &gt;0 → 1 else 0</text>
+          <rect x="590" y="26" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="630" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Binary Out</text>
+          <line x1="90" y1="44" x2="153" y2="44" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk2)"/>
+          <line x1="255" y1="44" x2="318" y2="44" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk2)"/>
+          <line x1="420" y1="44" x2="478" y2="44" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk2)"/>
+          <line x1="580" y1="44" x2="588" y2="44" stroke="#0a0a0a" stroke-width="1" marker-end="url(#psk2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">PSK Advantage</span>PSK provides better BER (Bit Error Rate) performance than ASK and FSK for the same SNR. Most widely used in practice. BPSK → QPSK → 8-PSK for higher efficiency.</div>
+    </div>
+  </div>
+
+  <!-- SECTION U2-11: QPSK -->
+  <div class="section-header" id="u2-qpsk">
+    <span class="section-num">11</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 10 marks</div>
+      <div class="section-title">QPSK Modulation and Demodulation</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">With help of a neat diagram explain the working of QPSK modulation and demodulation</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Quadrature Phase Shift Keying (QPSK)</h3>
+      <p><strong>QPSK</strong> is a variant of PSK where <strong>2 bits</strong> are encoded into each symbol by using <strong>4 different phase shifts</strong> (45°, 135°, 225°, 315°). This doubles the bandwidth efficiency compared to BPSK.</p>
+      <div class="formula">QPSK phases:
+  Dibit 00 → phase 45°   (+45°)
+  Dibit 01 → phase 135°  (+135°)
+  Dibit 11 → phase 225°  (−135°)
+  Dibit 10 → phase 315°  (−45°)
+
+s_QPSK(t) = Ac cos(2πfct + θn)   where θn ∈ {45°, 135°, 225°, 315°}
+
+Bandwidth: BWQPSK = BW_BPSK / 2 = Rs/2  (more efficient)</div>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 11.1 — QPSK constellation diagram (4 phases)</div>
+        <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Constellation -->
+          <line x1="200" y1="110" x2="350" y2="110" stroke="#d0cec8" stroke-width="1"/>
+          <line x1="275" y1="40" x2="275" y2="180" stroke="#d0cec8" stroke-width="1"/>
+          <text x="355" y="114" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">I (In-phase)</text>
+          <text x="270" y="36" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Q</text>
+          <!-- 4 constellation points -->
+          <circle cx="330" cy="65" r="8" fill="#0a0a0a"/>
+          <text x="342" y="62" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">01 (135°)</text>
+          <circle cx="220" cy="65" r="8" fill="#0a0a0a"/>
+          <text x="165" y="62" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">00 (45°)</text>
+          <circle cx="330" cy="155" r="8" fill="#0a0a0a"/>
+          <text x="342" y="158" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">11 (225°)</text>
+          <circle cx="220" cy="155" r="8" fill="#0a0a0a"/>
+          <text x="130" y="158" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">10 (315°)</text>
+          <!-- Lines from center -->
+          <line x1="275" y1="110" x2="322" y2="65" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="275" y1="110" x2="228" y2="65" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="275" y1="110" x2="322" y2="155" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2"/>
+          <line x1="275" y1="110" x2="228" y2="155" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- QPSK modulator block on right -->
+          <text x="430" y="30" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a" font-weight="bold">QPSK MODULATOR</text>
+          <rect x="420" y="40" width="110" height="28" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="475" y="58" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Serial → 2-bit</text>
+          <rect x="420" y="80" width="110" height="28" fill="#0a0a0a"/>
+          <text x="475" y="98" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">I-channel (cos)</text>
+          <rect x="420" y="120" width="110" height="28" fill="#0a0a0a"/>
+          <text x="475" y="138" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Q-channel (sin)</text>
+          <rect x="560" y="96" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="610" y="112" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Σ QPSK</text>
+          <text x="610" y="125" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Output</text>
+          <line x1="530" y1="94" x2="558" y2="108" stroke="#0a0a0a" stroke-width="1"/>
+          <line x1="530" y1="134" x2="558" y2="120" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="475" y="175" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Each dibit selects 1 of 4 phases</text>
+          <text x="475" y="188" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">2 bits/symbol = double BW efficiency</text>
+        </svg>
+      </div>
+
+      <h3>QPSK Demodulation</h3>
+      <div class="diagram">
+        <div class="diagram-label">Fig 11.2 — QPSK Demodulator</div>
+        <svg viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="qpsk2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="10" y="46" width="90" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="55" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">QPSK Signal</text>
+          <!-- I and Q detectors -->
+          <rect x="165" y="14" width="100" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="215" y="30" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">I Coherent Det</text>
+          <text x="215" y="43" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">×cos(2πfct)</text>
+          <rect x="165" y="78" width="100" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="215" y="94" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Q Coherent Det</text>
+          <text x="215" y="107" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">×sin(2πfct)</text>
+          <!-- LPFs -->
+          <rect x="330" y="14" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="370" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">LPF + Thresh</text>
+          <rect x="330" y="78" width="80" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="370" y="99" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">LPF + Thresh</text>
+          <!-- Parallel to serial -->
+          <rect x="475" y="46" width="100" height="36" fill="#0a0a0a"/>
+          <text x="525" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#fafaf8">Parallel-Serial</text>
+          <text x="525" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#d0cec8">Converter</text>
+          <rect x="590" y="46" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="630" y="66" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#0a0a0a">Binary Out</text>
+          <line x1="100" y1="64" x2="163" y2="32" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="100" y1="64" x2="163" y2="96" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="410" y1="32" x2="473" y2="57" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="410" y1="96" x2="473" y2="71" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="575" y1="64" x2="588" y2="64" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="265" y1="32" x2="328" y2="32" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+          <line x1="265" y1="96" x2="328" y2="96" stroke="#0a0a0a" stroke-width="1" marker-end="url(#qpsk2)"/>
+        </svg>
+      </div>
+      <div class="note"><span class="note-label">QPSK vs BPSK</span>QPSK transmits 2 bits per symbol vs 1 bit for BPSK, doubling spectral efficiency. Same noise immunity as BPSK. Used in: satellite comm (DVB-S), Wi-Fi (IEEE 802.11), 4G LTE, cable modems.</div>
+    </div>
+  </div>
+
+  <!-- SHORT ANSWERS U2 -->
+  <div class="section-header" id="u2-short">
+    <span class="section-num">12</span>
+    <div class="section-info">
+      <div class="section-tag">Short Answers · 2–3 marks each</div>
+      <div class="section-title">Short Answer Questions — Unit II</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Types of analog modulation techniques</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <p>The three types of analog modulation techniques are:</p>
+      <ul>
+        <li><strong>AM (Amplitude Modulation):</strong> Amplitude of carrier varies with message signal. Simple but susceptible to noise. Used in: AM radio, MF band.</li>
+        <li><strong>FM (Frequency Modulation):</strong> Frequency of carrier varies. Better noise immunity. Used in: FM radio (88–108 MHz), VHF band.</li>
+        <li><strong>PM (Phase Modulation):</strong> Phase of carrier varies. Used in: digital communication, basis for PSK.</li>
+      </ul>
+      <p>FM and PM together are called <strong>Angle Modulation</strong>.</p>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Differences between analog and digital modulation techniques</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <table>
+        <thead><tr><th>Analog Modulation</th><th>Digital Modulation</th></tr></thead>
+        <tbody>
+          <tr><td>Modulating signal is continuous/analog</td><td>Modulating signal is discrete/digital (binary)</td></tr>
+          <tr><td>AM, FM, PM</td><td>ASK, FSK, PSK, QPSK</td></tr>
+          <tr><td>More susceptible to noise</td><td>Better noise immunity</td></tr>
+          <tr><td>Continuous parameter variation</td><td>Discrete (2 or more) parameter states</td></tr>
+          <tr><td>Lower spectral efficiency</td><td>Higher spectral efficiency (esp. QPSK)</td></tr>
+          <tr><td>Simpler receiver design</td><td>More complex receiver (coherent detection)</td></tr>
+          <tr><td>Used for voice/music broadcasting</td><td>Used for data comm, internet, cellular</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Comparison of AM and FM</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <table>
+        <thead><tr><th>Parameter</th><th>AM</th><th>FM</th></tr></thead>
+        <tbody>
+          <tr><td>Varied parameter</td><td>Amplitude</td><td>Frequency</td></tr>
+          <tr><td>Modulation index</td><td>μ = Am/Ac (0–1)</td><td>mf = Δf/fm (can be &gt;1)</td></tr>
+          <tr><td>Bandwidth</td><td>BW = 2fm</td><td>BW = 2(Δf + fm)</td></tr>
+          <tr><td>Noise immunity</td><td>Poor</td><td>Good (limiter removes AM noise)</td></tr>
+          <tr><td>Power efficiency</td><td>Low (carrier wastes power)</td><td>High (constant amplitude)</td></tr>
+          <tr><td>Circuit complexity</td><td>Simple</td><td>More complex</td></tr>
+          <tr><td>Frequency band</td><td>MF (300 kHz–3 MHz)</td><td>VHF (88–108 MHz)</td></tr>
+          <tr><td>Applications</td><td>AM radio, aviation</td><td>FM radio, police/aircraft comm</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Applications of Analog modulation techniques</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <ul>
+        <li><strong>AM:</strong> AM radio broadcasting (MF band: 540 kHz–1.6 MHz), aircraft voice communications, maritime radio.</li>
+        <li><strong>FM:</strong> FM radio broadcasting (88–108 MHz VHF), TV audio, public safety radio (police/fire), satellite radio.</li>
+        <li><strong>PM:</strong> Basis for digital PSK/QPSK in cellular, Wi-Fi, satellite communication.</li>
+        <li><strong>PAM:</strong> Multiplexed telephony systems, basis for PCM in digital audio.</li>
+        <li><strong>PWM:</strong> Motor speed control, power electronics, audio amplification (Class D amplifiers).</li>
+        <li><strong>PCM:</strong> Digital telephony (DS1/T1 carrier), audio CDs (44.1 kHz, 16-bit PCM), digital recording.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Applications of Digital Modulation techniques</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <ul>
+        <li><strong>ASK:</strong> Optical fiber communication, RFID systems, infrared remote controls, some wireless sensor networks.</li>
+        <li><strong>FSK:</strong> Caller ID, early telephone modems (Bell 103: 300 baud), Bluetooth (GFSK), paging systems, amateur radio (RTTY).</li>
+        <li><strong>BPSK:</strong> Deep space/satellite communications (Voyager, Cassini), 802.11b Wi-Fi at low speeds, GPS.</li>
+        <li><strong>QPSK:</strong> Satellite (DVB-S), 3G WCDMA, cable modems (DOCSIS), Wi-Fi (IEEE 802.11a/g/n), 4G LTE.</li>
+        <li><strong>8-PSK, QAM:</strong> Higher-order modulations used in 4G/5G, cable TV (DVB-C), DSL.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)"><span class="q-badge short">Short</span><span class="q-question">Comparison of QPSK and BPSK</span><span class="q-arrow">›</span></button>
+    <div class="q-body">
+      <table>
+        <thead><tr><th>Parameter</th><th>BPSK</th><th>QPSK</th></tr></thead>
+        <tbody>
+          <tr><td>Bits per symbol</td><td>1 bit/symbol</td><td>2 bits/symbol (dibit)</td></tr>
+          <tr><td>Number of phases</td><td>2 (0°, 180°)</td><td>4 (45°, 135°, 225°, 315°)</td></tr>
+          <tr><td>Bandwidth</td><td>Higher (BW = Rs)</td><td>Half of BPSK (BW = Rs/2)</td></tr>
+          <tr><td>Spectral efficiency</td><td>1 bps/Hz</td><td>2 bps/Hz</td></tr>
+          <tr><td>Noise immunity</td><td>Same BER performance</td><td>Same BER as BPSK</td></tr>
+          <tr><td>Complexity</td><td>Simple</td><td>Moderate (I and Q branches)</td></tr>
+          <tr><td>Applications</td><td>Deep space comm, GPS</td><td>Satellite (DVB-S), 3G, Wi-Fi</td></tr>
+        </tbody>
+      </table>
+      <div class="note"><span class="note-label">Key insight</span>QPSK achieves the same BER as BPSK while requiring only half the bandwidth — it is the standard choice for most practical communication systems today.</div>
+    </div>
+  </div>
+
+</div><!-- end content -->
+</main>
+
+</div><!-- end page-unit2 -->
+
+<!-- SHARED FOOTER -->
 <footer>
-  <span>Unit I · Principles of Electronic Communications · Exam Prep</span>
-  <span>Priority 1 &amp; 2 Long Answers · Short Answers · Diagrams · Formulas</span>
+  <div class="footer-top">
+    <span>Principles of Electronic Communications · Unit I &amp; II · Exam Prep</span>
+    <span id="footerRatingCount">No ratings yet</span>
+  </div>
+  <div class="footer-reviews-label" id="reviewsLabel" style="display:none">★ Student Reviews</div>
+  <div class="reviews-grid" id="reviewsGrid">
+    <div class="no-reviews" id="noReviewsMsg">Rate Unit 1 to see reviews here. Switch to Unit 2 to leave your review.</div>
+  </div>
 </footer>
 
 <script>
+  // ── STATE ──
+  let currentRating = 0;
+  let unit2Unlocked = false;
+  const reviews = [];
+
+  // ── UNIT SWITCHING ──
+  function switchUnit(unit) {
+    document.getElementById('page-unit1').classList.toggle('active', unit === 1);
+    document.getElementById('page-unit2').classList.toggle('active', unit === 2);
+    document.getElementById('btn-unit1').classList.toggle('active', unit === 1);
+    document.getElementById('btn-unit2').classList.toggle('active', unit === 2);
+    window.scrollTo(0, 0);
+  }
+
+  function handleUnit2Click() {
+    if (unit2Unlocked) {
+      switchUnit(2);
+    } else {
+      showRatingModal();
+    }
+  }
+
+  // ── RATING MODAL ──
+  function showRatingModal() {
+    document.getElementById('ratingModal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('ratingModal').classList.remove('show');
+  }
+
+  function setRating(val) {
+    currentRating = val;
+    const stars = document.querySelectorAll('#starRow .star');
+    stars.forEach((s, i) => s.classList.toggle('active', i < val));
+  }
+
+  function submitRating() {
+    if (currentRating === 0) {
+      const stars = document.querySelectorAll('#starRow .star');
+      stars.forEach(s => { s.style.transform = 'scale(1.2)'; setTimeout(() => s.style.transform = '', 300); });
+      return;
+    }
+    const comment = document.getElementById('commentArea').value.trim();
+    const starsStr = '★'.repeat(currentRating) + '☆'.repeat(5 - currentRating);
+    reviews.push({ rating: currentRating, stars: starsStr, comment: comment || 'No comment left.' });
+    updateFooterReviews();
+    unit2Unlocked = true;
+    closeModal();
+    switchUnit(2);
+  }
+
+  function updateFooterReviews() {
+    const grid = document.getElementById('reviewsGrid');
+    const label = document.getElementById('reviewsLabel');
+    const noMsg = document.getElementById('noReviewsMsg');
+    const count = document.getElementById('footerRatingCount');
+    if (reviews.length === 0) { count.textContent = 'No ratings yet'; return; }
+    const avg = (reviews.reduce((s,r) => s + r.rating, 0) / reviews.length).toFixed(1);
+    count.textContent = `${reviews.length} review${reviews.length > 1 ? 's' : ''} · Avg: ${avg} ★`;
+    label.style.display = 'block';
+    noMsg.style.display = 'none';
+    grid.innerHTML = '';
+    reviews.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      card.innerHTML = `<div class="review-stars">${r.stars}</div><div class="review-text">${r.comment}</div><div class="review-meta">Unit 1 Review · ${new Date().toLocaleDateString()}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  // ── ACCESS DENIED ──
+  function hideDenied() {
+    document.getElementById('accessDenied').classList.remove('show');
+  }
+
+  // ── QUESTION TOGGLE ──
   function toggle(btn) {
     const block = btn.closest('.q-block');
     block.classList.toggle('open');
   }
 
-  // Sidebar active link highlighting on scroll
-  const sections = document.querySelectorAll('.section-header[id]');
-  const links = document.querySelectorAll('aside a');
-
-  function onScroll() {
+  // ── SIDEBAR ACTIVE SCROLL ──
+  function updateSidebarActive() {
+    const sections = document.querySelectorAll('.section-header[id]');
+    const links = document.querySelectorAll('aside a');
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    links.forEach(l => {
-      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
-    });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    links.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
   }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', updateSidebarActive, { passive: true });
 </script>
-
 </body>
 </html>
