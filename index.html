@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit I — Electronic Communications Exam Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #fafaf8;
+    --gray-light: #f0eeea;
+    --gray-mid: #d0cec8;
+    --gray-dark: #5a5a5a;
+    --border: 1px solid #0a0a0a;
+    --border-thin: 1px solid rgba(10,10,10,0.15);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 2px solid var(--black);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: stretch;
+    border-bottom: var(--border);
+  }
+
+  .header-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-right: var(--border);
+    display: flex;
+    align-items: center;
+    color: var(--gray-dark);
+    white-space: nowrap;
+  }
+
+  .header-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 24px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 10px 20px;
+    border-left: var(--border);
+    display: flex;
+    align-items: center;
+    color: var(--gray-dark);
+    white-space: nowrap;
+  }
+
+  nav {
+    display: flex;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    padding: 10px 20px;
+    border-right: var(--border-thin);
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  nav a:hover { background: var(--black); color: var(--white); }
+  nav a:first-child { border-left: none; }
+
+  /* ── HERO ── */
+  .hero {
+    border-bottom: 2px solid var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-left {
+    padding: 60px 48px;
+    border-right: 2px solid var(--black);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 20px;
+  }
+
+  .hero-heading {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .hero-heading em {
+    font-style: italic;
+    display: block;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--gray-dark);
+    max-width: 400px;
+    line-height: 1.8;
+  }
+
+  .hero-right {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .topic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--border);
+  }
+
+  .topic-item {
+    padding: 16px 18px;
+    border-right: var(--border-thin);
+    border-bottom: var(--border-thin);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .topic-item:nth-child(2n) { border-right: none; }
+  .topic-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .topic-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--gray-dark);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .priority-strip {
+    margin-top: 32px;
+    border: var(--border);
+    display: flex;
+    overflow: hidden;
+  }
+
+  .priority-item {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    border-right: var(--border);
+  }
+
+  .priority-item:last-child { border-right: none; }
+
+  .priority-item .num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    display: block;
+  }
+
+  .priority-item .lbl {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+
+  /* ── SIDEBAR ── */
+  aside {
+    border-right: 2px solid var(--black);
+    padding: 32px 0;
+    position: sticky;
+    top: 88px;
+    height: calc(100vh - 88px);
+    overflow-y: auto;
+  }
+
+  .aside-section { margin-bottom: 32px; }
+
+  .aside-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    padding: 0 20px 8px;
+    border-bottom: var(--border-thin);
+    margin-bottom: 4px;
+  }
+
+  aside a {
+    display: block;
+    padding: 8px 20px;
+    font-size: 12px;
+    color: var(--black);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+
+  aside a:hover {
+    border-left-color: var(--black);
+    background: var(--gray-light);
+  }
+
+  aside a.active {
+    border-left-color: var(--black);
+    background: var(--black);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── CONTENT ── */
+  .content { padding: 0; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    border-bottom: 2px solid var(--black);
+    padding: 32px 48px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    background: var(--white);
+  }
+
+  .section-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--gray-mid);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-info {}
+
+  .section-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* ── QUESTION CARDS ── */
+  .q-block {
+    border-bottom: 2px solid var(--black);
+  }
+
+  .q-trigger {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 48px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    border-bottom: var(--border-thin);
+    transition: background 0.15s;
+  }
+
+  .q-trigger:hover { background: var(--gray-light); }
+
+  .q-badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: var(--border);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .q-badge.p1 { background: var(--black); color: var(--white); }
+  .q-badge.p2 { background: var(--white); color: var(--black); }
+  .q-badge.short { background: var(--gray-light); color: var(--black); }
+
+  .q-question {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .q-marks {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gray-dark);
+    flex-shrink: 0;
+  }
+
+  .q-arrow {
+    font-size: 16px;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .q-block.open .q-arrow { transform: rotate(90deg); }
+
+  .q-body {
+    display: none;
+    padding: 32px 48px 40px;
+    border-top: var(--border-thin);
+    animation: fadeIn 0.2s ease;
+  }
+
+  .q-block.open .q-body { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CONTENT ELEMENTS ── */
+  h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 24px 0 10px;
+    border-bottom: var(--border-thin);
+    padding-bottom: 6px;
+  }
+
+  h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-dark);
+    margin: 18px 0 6px;
+  }
+
+  p { margin-bottom: 12px; color: #1a1a1a; }
+
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; color: #1a1a1a; }
+
+  .formula {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 20px;
+    margin: 12px 0;
+    border-left: 4px solid var(--black);
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .note {
+    border: var(--border);
+    border-left: 4px solid var(--black);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 13px;
+    background: var(--gray-light);
+  }
+
+  .note-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border: var(--border);
+  }
+
+  td {
+    padding: 9px 14px;
+    border: 1px solid var(--gray-mid);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: var(--gray-light); }
+
+  .diagram {
+    border: var(--border);
+    margin: 16px 0;
+    background: var(--gray-light);
+    overflow: hidden;
+  }
+
+  .diagram-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-bottom: var(--border);
+    color: var(--gray-dark);
+    background: var(--white);
+  }
+
+  /* ── DIAGRAMS (SVG) ── */
+  .diagram svg { display: block; width: 100%; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 2px solid var(--black);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gray-dark);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 2px solid var(--black); padding: 40px 24px; }
+    .hero-right { padding: 32px 24px; }
+    main { grid-template-columns: 1fr; }
+    aside { display: none; }
+    .section-header, .q-trigger, .q-body { padding-left: 24px; padding-right: 24px; }
+    footer { flex-direction: column; gap: 8px; padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <span class="header-label">ECE / PEC</span>
+    <span class="header-title">Principles of Electronic Communications</span>
+    <span class="header-meta">Unit I · Exam Prep</span>
+  </div>
+  <nav>
+    <a href="#modulation">01 Modulation</a>
+    <a href="#spectrum">02 EM Spectrum</a>
+    <a href="#commSystem">03 Comm System</a>
+    <a href="#gainAtten">04 Gain & Attenuation</a>
+    <a href="#decibels">05 Decibels</a>
+    <a href="#freqTrans">06 Freq Translation</a>
+    <a href="#shortAnswers">07 Short Answers</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Exam Preparation Guide · Unit I</p>
+    <h1 class="hero-heading">
+      Introduction<br>to
+      <em>Communication</em>
+      Systems
+    </h1>
+    <p class="hero-desc">All priority 1 &amp; 2 long answers plus short answers — with block diagrams, formulas, and worked examples. Study smart for tomorrow.</p>
+  </div>
+  <div class="hero-right">
+    <div class="topic-grid">
+      <div class="topic-item"><span class="topic-num">01</span>Need for Modulation</div>
+      <div class="topic-item"><span class="topic-num">02</span>EM Spectrum &amp; Bands</div>
+      <div class="topic-item"><span class="topic-num">03</span>Basic Comm System</div>
+      <div class="topic-item"><span class="topic-num">04</span>Gain &amp; Attenuation</div>
+      <div class="topic-item"><span class="topic-num">05</span>Decibels</div>
+      <div class="topic-item"><span class="topic-num">06</span>Frequency Translation</div>
+    </div>
+    <div class="priority-strip">
+      <div class="priority-item"><span class="num">4</span><span class="lbl">Priority 1 Qs</span></div>
+      <div class="priority-item"><span class="num">4</span><span class="lbl">Priority 2 Qs</span></div>
+      <div class="priority-item"><span class="num">6</span><span class="lbl">Short Answers</span></div>
+      <div class="priority-item"><span class="num">10</span><span class="lbl">Marks max</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main>
+
+<!-- SIDEBAR -->
+<aside>
+  <div class="aside-section">
+    <div class="aside-label">Priority 1 — Long</div>
+    <a href="#modulation">Need for Modulation</a>
+    <a href="#spectrum">EM Spectrum</a>
+    <a href="#commSystem">Comm System</a>
+    <a href="#gainAtten">Gain &amp; Attenuation</a>
+  </div>
+  <div class="aside-section">
+    <div class="aside-label">Priority 2 — Long</div>
+    <a href="#freqTrans">Frequency Translation</a>
+    <a href="#freqBands">Freq Bands</a>
+    <a href="#modTypes">Types of Modulation</a>
+    <a href="#dbProblems">dB Problems</a>
+  </div>
+  <div class="aside-section">
+    <div class="aside-label">Short Answers</div>
+    <a href="#shortAnswers">Definitions + Problems</a>
+  </div>
+</aside>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ══ SECTION 01: MODULATION ══ -->
+  <div class="section-header" id="modulation">
+    <span class="section-num">01</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 5 marks</div>
+      <div class="section-title">Need for Modulation in Electronic Communications</div>
+    </div>
+  </div>
+
+  <div class="q-block open">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">Explain why modulation is needed/required/important for electronic communications in detail</span>
+      <span class="q-marks">[5 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+
+      <h3>Definition of Modulation</h3>
+      <p>Modulation is the process of changing the parameters (amplitude, frequency, or phase) of a high-frequency <strong>carrier signal</strong> in accordance with the instantaneous values of a low-frequency <strong>modulating (message/intelligence) signal</strong>.</p>
+      <p>The resultant signal after modulation is called the <strong>modulated signal</strong>. The high-frequency carrier carries the message to the destination.</p>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 1.1 — Modulation block diagram</div>
+        <svg viewBox="0 0 680 130" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <!-- Message signal -->
+          <rect x="20" y="30" width="120" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="80" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Message signal</text>
+          <!-- Carrier -->
+          <rect x="20" y="90" width="120" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="80" y="109" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Carrier signal</text>
+          <!-- Modulator -->
+          <rect x="240" y="30" width="120" height="60" fill="#0a0a0a"/>
+          <text x="300" y="63" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#fafaf8">MODULATOR</text>
+          <!-- Modulated output -->
+          <rect x="470" y="30" width="140" height="60" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="540" y="57" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Modulated</text>
+          <text x="540" y="73" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">signal</text>
+          <!-- Arrows -->
+          <line x1="140" y1="52" x2="238" y2="52" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
+          <polyline points="140,105 200,105 200,75 238,65" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
+          <line x1="360" y1="60" x2="468" y2="60" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a1)"/>
+          <text x="165" y="48" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Baseband</text>
+          <text x="395" y="55" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Transmitted</text>
+        </svg>
+      </div>
+
+      <h3>5 Reasons Why Modulation is Needed</h3>
+
+      <h4>1. Reduction in antenna height</h4>
+      <p>For effective radiation, antenna height must be at least <strong>λ/4</strong>. Without modulation, transmitting a baseband signal of 15 kHz would require:</p>
+      <div class="formula">λ = c/f = (3×10⁸) / (15×10³) = 20,000 m
+H = λ/4 = 5000 m  ← Impractical!
+
+With modulation at 1 MHz:
+λ = 3×10⁸ / 10⁶ = 300 m → H = 75 m  ✓</div>
+      <p>So modulation dramatically reduces the required antenna height.</p>
+
+      <h4>2. Avoids mixing of signals</h4>
+      <p>If all audio/baseband signals are transmitted at the same frequency (0–5 kHz), they mix with each other. A receiver cannot separate them. Modulation assigns each signal a different carrier frequency, placing each in a different "slot" of the spectrum. Different receivers tune to different carriers — no mixing.</p>
+
+      <h4>3. Multiplexing is possible</h4>
+      <p>Modulation allows more than one signal to be transmitted over a single medium simultaneously. This is possible only with modulation. Each signal occupies a different frequency domain "slot" (carrier). Without modulation, signals cannot share a single channel.</p>
+
+      <h4>4. Increases the range of communication</h4>
+      <p>Low-frequency baseband signals are heavily attenuated with distance. The modulation process increases the transmission frequency. Higher-frequency signals travel longer distances with less attenuation — increasing the range of communication.</p>
+
+      <h4>5. Improves quality of reception</h4>
+      <p>High-frequency carrier signals protect information from various disturbances. The high-frequency carrier signal protects information from various disturbances and noise, improving the quality of reception at the destination.</p>
+
+      <div class="note">
+        <span class="note-label">Key formula to remember</span>
+        Minimum antenna height H = λ/4 = c/(4f). At 15 kHz → 5000 m. At 1 MHz (with modulation) → 75 m.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 02: EM SPECTRUM ══ -->
+  <div class="section-header" id="spectrum">
+    <span class="section-num">02</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 5 marks</div>
+      <div class="section-title">Electromagnetic Spectrum and its Bands</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">Explain in detail about electromagnetic spectrum and its bands</span>
+      <span class="q-marks">[5 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Electromagnetic Spectrum</h3>
+      <p>Electromagnetic waves are signals that oscillate — they have both electric and magnetic field components at a specific rate (frequency). These oscillations may occur at very low frequencies or at extremely high frequencies.</p>
+      <p>The range of electromagnetic signals encompassing all frequencies is referred to as the <strong>electromagnetic spectrum</strong>. All electrical and electronic signals that radiate into free space fall into the electromagnetic spectrum.</p>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 2.1 — Electromagnetic spectrum bands</div>
+        <svg viewBox="0 0 680 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <line x1="20" y1="20" x2="660" y2="20" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a2)"/>
+          <text x="650" y="16" text-anchor="end" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">Freq →</text>
+          <!-- Bands -->
+          <rect x="20" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="52" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">ELF</text>
+          <rect x="85" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="117" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VF</text>
+          <rect x="150" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="182" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VLF</text>
+          <rect x="215" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="247" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">LF</text>
+          <rect x="280" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="312" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">MF</text>
+          <rect x="345" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="377" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">HF</text>
+          <rect x="410" y="30" width="65" height="30" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="442" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">VHF</text>
+          <rect x="475" y="30" width="65" height="30" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="507" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">UHF</text>
+          <rect x="540" y="30" width="65" height="30" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="572" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">SHF+</text>
+          <text x="52" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">30 Hz</text>
+          <text x="312" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">300 kHz</text>
+          <text x="572" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#fafaf8">3 GHz+</text>
+        </svg>
+      </div>
+
+      <h3>Frequency Band Table</h3>
+      <table>
+        <thead><tr><th>Band</th><th>Name</th><th>Frequency</th><th>Wavelength</th><th>Applications</th></tr></thead>
+        <tbody>
+          <tr><td>ELF</td><td>Extremely Low Freq</td><td>30–300 Hz</td><td>10⁶–10⁷ m</td><td>AC power (50/60 Hz), audio low end</td></tr>
+          <tr><td>VF</td><td>Voice Frequency</td><td>300–3000 Hz</td><td>10⁵–10⁶ m</td><td>Normal range of human speech</td></tr>
+          <tr><td>VLF</td><td>Very Low Frequency</td><td>3–30 kHz</td><td>10⁴–10⁵ m</td><td>Military, govt comm, musical instruments, subcartiers</td></tr>
+          <tr><td>LF</td><td>Low Frequency</td><td>30–300 kHz</td><td>10³–10⁴ m</td><td>Aeronautical &amp; marine navigation</td></tr>
+          <tr><td>MF</td><td>Medium Frequency</td><td>300 kHz–3 MHz</td><td>10²–10³ m</td><td>AM broadcasting, aeronautical &amp; marine comm</td></tr>
+          <tr><td>HF</td><td>High Frequency</td><td>3–30 MHz</td><td>10–10² m</td><td>Short waves, VOA, BBC, amateur radio, CB radio</td></tr>
+          <tr><td>VHF</td><td>Very High Frequency</td><td>30–300 MHz</td><td>1–10 m</td><td>TV channels 2–13, FM radio, land mobile</td></tr>
+          <tr><td>UHF</td><td>Ultra High Frequency</td><td>300 MHz–3 GHz</td><td>0.1–1 m</td><td>TV ch 14–83, cellular phones, radar</td></tr>
+          <tr><td>SHF</td><td>Super High Freq (Microwave)</td><td>3–30 GHz</td><td>0.01–0.1 m</td><td>Satellite comm, microwave ovens, telephony</td></tr>
+          <tr><td>EHF</td><td>Extremely High Frequency</td><td>30–300 GHz</td><td>1–10 mm</td><td>Wireless LAN, satellite telephony, Radars</td></tr>
+          <tr><td>Infrared</td><td>Optical spectrum</td><td>300 GHz–430 THz</td><td>0.7–1000 μm</td><td>TV remotes, optical fiber, astronomy</td></tr>
+          <tr><td>Visible</td><td>VIBGYOR</td><td>430–750 THz</td><td>400–700 nm</td><td>Optical comm</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <span class="note-label">Important Note</span>
+        HF (3–30 MHz) = "Short Waves". Broadcasts from Voice of America (VOA) and BBC occur in this range. Also: embassies, amateur radio, Citizen Band (CB) radio.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 03: COMM SYSTEM ══ -->
+  <div class="section-header" id="commSystem">
+    <span class="section-num">03</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">Basic Electronic Communication System</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">Explain the working of a basic electronic communication system with the help of a neat diagram</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Introduction</h3>
+      <p><strong>Communication</strong> means sending, receiving, and processing of information between two or more devices. A collection of elements (devices) which work together to establish communication between a sender and receiver is called a <strong>communication system</strong>.</p>
+      <p>Examples: Radio broadcasting, TV broadcasting, Radio telegraphy, Mobile communication, Computer communication.</p>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 3.1 — Block diagram of a basic electronic communication system</div>
+        <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <!-- Blocks -->
+          <rect x="8" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="45" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Info</text>
+          <text x="45" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Source</text>
+
+          <rect x="92" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="129" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Input</text>
+          <text x="129" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
+
+          <rect x="176" y="52" width="74" height="44" fill="#0a0a0a"/>
+          <text x="213" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Trans-</text>
+          <text x="213" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">mitter</text>
+
+          <rect x="260" y="52" width="74" height="44" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="297" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Channel</text>
+
+          <!-- Noise -->
+          <rect x="272" y="110" width="50" height="30" fill="#fafaf8" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="4 2"/>
+          <text x="297" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Noise</text>
+          <line x1="297" y1="110" x2="297" y2="96" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#a3)"/>
+
+          <rect x="344" y="52" width="74" height="44" fill="#0a0a0a"/>
+          <text x="381" y="78" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Receiver</text>
+
+          <rect x="428" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="465" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Output</text>
+          <text x="465" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Transducer</text>
+
+          <rect x="512" y="52" width="74" height="44" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="549" y="71" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">Desti-</text>
+          <text x="549" y="84" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#0a0a0a">nation</text>
+
+          <!-- Arrows between blocks -->
+          <line x1="82" y1="74" x2="90" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+          <line x1="166" y1="74" x2="174" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+          <line x1="250" y1="74" x2="258" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+          <line x1="334" y1="74" x2="342" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+          <line x1="418" y1="74" x2="426" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+          <line x1="502" y1="74" x2="510" y2="74" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a3)"/>
+
+          <!-- Labels below -->
+          <text x="45" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Message</text>
+          <text x="129" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Elec signal</text>
+          <text x="549" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">eg. TV</text>
+        </svg>
+      </div>
+
+      <h3>Explanation of Each Block</h3>
+
+      <h4>Information Source</h4>
+      <p>Originates the message — may be sound (human speech), light, picture, words. The message is referred to as <strong>information or intelligence signal</strong>.</p>
+
+      <h4>Input Transducer</h4>
+      <p>A device which converts one form of energy into another form (non-electrical to electrical). It converts the message signal (sound, light) into an electrical signal. Example: <strong>Microphone</strong> — a device which is placed in the information section to convert sound signals into electrical signals.</p>
+
+      <h4>Transmitter</h4>
+      <p>A device which transmits the message (electrical signal) over the communication channel. Uses a technique called <strong>modulation</strong> to send the signals. Transmitters include oscillators, amplifiers, modulators, frequency mixers, tuned circuits, and antennas.</p>
+
+      <h4>Communication Channel</h4>
+      <p>The medium through which the signal travels from transmitter to receiver. Types: <strong>Free space</strong> (wireless), <strong>Wire</strong> (twisted pair, co-axial cable), <strong>Fiber-optic cable</strong>.</p>
+
+      <h4>Noise</h4>
+      <p>Noise is the general term for all unwanted signals added to the transmitted signal along the communication channel. Noise degrades the quality of information. Signal-to-Noise Ratio (SNR) = Signal Power / Noise Power (dB). High SNR → preferred for best performance.</p>
+
+      <h4>Receiver</h4>
+      <p>A device that receives the signal from the channel, converts it to the original electrical signal, and amplifies it. TV receiver contains amplifiers, filters, oscillators, demodulators, tuned circuits. It converts the signal sent by the transmitter back into an understandable form.</p>
+
+      <h4>Output Transducer</h4>
+      <p>Converts the electrical signal back to non-electrical form (sound or light). Example: <strong>Loudspeaker</strong> — converts electrical signal to sound.</p>
+
+      <h4>Destination</h4>
+      <p>The final stage — the place where the communication system consumes the information. Example: watching TV.</p>
+
+      <div class="note">
+        <span class="note-label">Transceiver</span>
+        A transceiver is a device that can both transmit and receive — it incorporates circuits that both send and receive. Examples: cellular telephones, fax machines, hand-held CB radios, computer modems.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 04: GAIN & ATTENUATION ══ -->
+  <div class="section-header" id="gainAtten">
+    <span class="section-num">04</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 1 · Long Answer · 10 marks</div>
+      <div class="section-title">Gain, Attenuation and Decibels</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p1">Priority 1</span>
+      <span class="q-question">Explain about Gain, Attenuation and Decibels in detail with sample examples</span>
+      <span class="q-marks">[10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p>Most electronic circuits in communication are used to process signals — to manipulate signals to produce a desired result. All signal processing circuits involve either <strong>gain</strong> or <strong>attenuation</strong>.</p>
+
+      <h3>1. Gain</h3>
+      <p>Gain means <strong>amplification</strong>. If the signal is applied to a circuit such as an amplifier and the output has a greater amplitude than the input signal, the circuit has gain. Gain is the ratio of output to input.</p>
+      <div class="formula">Voltage Gain (Av) = Vout / Vin
+Power Gain (Ap) = Pout / Pin</div>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 4.1 — Cascaded amplifier stages</div>
+        <svg viewBox="0 0 680 80" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <text x="20" y="44" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Vin →</text>
+          <rect x="65" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="120" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A1 (Gain)</text>
+          <line x1="175" y1="42" x2="193" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
+          <rect x="195" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="250" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A2 (Gain)</text>
+          <line x1="305" y1="42" x2="323" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
+          <rect x="325" y="22" width="110" height="40" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1" stroke-dasharray="5 2"/>
+          <text x="380" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A3 (Loss)</text>
+          <line x1="435" y1="42" x2="453" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
+          <rect x="455" y="22" width="110" height="40" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="510" y="46" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">A4 (Gain)</text>
+          <line x1="565" y1="42" x2="583" y2="42" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a4)"/>
+          <text x="590" y="46" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Vout</text>
+          <text x="340" y="72" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5a5a5a">A_Total = A1 × A2 × A3 × A4 (product of gains)</text>
+        </svg>
+      </div>
+      <p>When two or more amplifier stages are cascaded, the overall gain = <strong>product of individual circuit gains</strong>: A_T = A1 × A2 × A3 × A4</p>
+
+      <h3>2. Attenuation</h3>
+      <p>Attenuation refers to a <strong>loss</strong> introduced by a circuit or component. Many electronic circuits (sometimes called "stages") reduce the amplitude of a signal rather than increase it. If the output signal is lower in amplitude than the input, the circuit has loss or attenuation.</p>
+      <div class="formula">Attenuation A = Output / Input = Vout / Vin   (value &lt; 1)
+Circuits with attenuation have a gain less than 1.
+Total attenuation = A1 × A2 × A3 (product of individual attenuations)</div>
+
+      <h3>3. Decibels (dB)</h3>
+      <p>The gain or loss of a circuit is usually expressed in <strong>decibels (dB)</strong>. The decibel was originally created as a way of expressing the hearing response of the human ear to various sound levels. The decibel is one-tenth of a Bel.</p>
+      <div class="formula">dB (voltage) = 20 log (Vout / Vin)
+dB (current) = 20 log (Iout / Iin)
+dB (power)   = 10 log (Pout / Pin)
+
+Total gain/attenuation = algebraic SUM of individual dB stages:
+  A_Total (dB) = A1 – A2 + A3</div>
+
+      <h3>Worked Examples</h3>
+
+      <h4>Example 1 — Express Pout = 12.3 dBm in watts</h4>
+      <div class="formula">dBm = 10 log(Pout / 1mW)
+→ Pout = 10^(12.3/10) × 1mW
+→ Pout = 10^1.23 × 1mW = 17 mW = 0.017 W</div>
+
+      <h4>Example 2 — Find power gain of 5-stage amplifier</h4>
+      <div class="formula">Each stage gain = 22%, Pin = 35 mW
+Pout = Pin × 10^(Ap/10)
+Pout = 35 × 10^2.2 = 35 × 158.49 ≈ 620.95 mW
+Power gain = Pout / Pin = 620.95 / 35 ≈ 17.74</div>
+
+      <table>
+        <thead><tr><th>Sound</th><th>Level (dB)</th></tr></thead>
+        <tbody>
+          <tr><td>Threshold of hearing (0 dB)</td><td>0 dB</td></tr>
+          <tr><td>Rustle of leaves</td><td>10 dB</td></tr>
+          <tr><td>Whisper</td><td>15 dB</td></tr>
+          <tr><td>Quiet radio</td><td>40 dB</td></tr>
+          <tr><td>Normal conversation</td><td>65 dB</td></tr>
+          <tr><td>Busy street corner</td><td>80 dB</td></tr>
+          <tr><td>Subway car</td><td>100 dB</td></tr>
+          <tr><td>Pain threshold</td><td>120 dB</td></tr>
+          <tr><td>Jet engine</td><td>140–160 dB</td></tr>
+        </tbody>
+      </table>
+
+      <div id="decibels"></div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 05: FREQUENCY TRANSLATION (P2) ══ -->
+  <div class="section-header" id="freqTrans">
+    <span class="section-num">05</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 5 marks</div>
+      <div class="section-title">Frequency Translation</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">Explain in detail about frequency translation and its significance in modern communication</span>
+      <span class="q-marks">[5 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Frequency Translation</h3>
+      <p><strong>Frequency translation</strong> is the process of transferring a signal from one frequency range to another — moving the frequency axis from one point to another. Frequency translation occurs frequently in a wireless communication system. It is used to convert a frequency band signal to a baseband signal and is the <strong>most efficient method of transmission</strong>.</p>
+
+      <div class="diagram">
+        <div class="diagram-label">Fig 5.1 — Frequency translation block diagram</div>
+        <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <rect x="20" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="70" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">S₁(t) signal</text>
+
+          <rect x="190" y="40" width="130" height="36" fill="#0a0a0a"/>
+          <text x="255" y="56" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">× cos2π(f₁–f₂)t</text>
+          <text x="255" y="70" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#fafaf8">Multiplier</text>
+
+          <text x="255" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a5a5a">↑ Carrier input</text>
+          <line x1="255" y1="100" x2="255" y2="78" stroke="#5a5a5a" stroke-width="0.8" stroke-dasharray="3 2" marker-end="url(#a5)"/>
+
+          <rect x="390" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="440" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">BPF at f₂</text>
+
+          <rect x="560" y="40" width="100" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="610" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#0a0a0a">S₂(t) at f₂</text>
+
+          <line x1="120" y1="58" x2="188" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
+          <line x1="320" y1="58" x2="388" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
+          <line x1="490" y1="58" x2="558" y2="58" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a5)"/>
+        </svg>
+      </div>
+
+      <h3>Significance of Frequency Translation</h3>
+      <ul>
+        <li>Converts baseband signals to passband signals for wireless long-distance transmission</li>
+        <li>Enables <strong>multiplexing</strong> — multiple signals on the same channel using different carrier frequencies</li>
+        <li>Reduces antenna height requirement (same benefit as modulation)</li>
+        <li>Allows use of Band Pass Filters (BPF) for channel selection at the receiver</li>
+        <li>Upward translation: baseband signal → centered spectrum at a new carrier f₂</li>
+        <li>Downward translation (demodulation): extracts the original baseband signal at receiver</li>
+      </ul>
+      <div class="formula">S(t) × cos2π(f₁–f₂)t → BPF at f₂ → S₂(t) centered at f₂</div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 06: FREQ BANDS (P2) ══ -->
+  <div class="section-header" id="freqBands">
+    <span class="section-num">06</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 5 marks</div>
+      <div class="section-title">Available Frequency Bands in Electronic Communication</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">What are the available frequency bands in electronic communication?</span>
+      <span class="q-marks">[5 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p>Refer to Section 02 (EM Spectrum) for the full band table. Key additional notes on specific bands:</p>
+      <ul>
+        <li><strong>ELF:</strong> Includes AC power line frequencies (50 and 60 Hz) and the low end of human audio range.</li>
+        <li><strong>VF:</strong> Normal range of human speech.</li>
+        <li><strong>VLF:</strong> Higher end of human hearing range. Many musical instruments make sounds in this range. Used in government and military communication.</li>
+        <li><strong>LF:</strong> Aeronautical and marine navigation. Also used as sub-carriers.</li>
+        <li><strong>MF:</strong> AM broadcasting. Aeronautical and marine communication.</li>
+        <li><strong>HF (Short Waves):</strong> All kinds of simplex broadcasting and half-duplex two-way radio comm. Broadcasts from VOA and BBC. Embassies, amateur radio (individuals become licensed "hams"), CB communication (Citizen Band — trucks, cars).</li>
+        <li><strong>VHF:</strong> TV channels (2–13), FM radio broadcasting, land mobile, cellular telephones, military, radio amateurs.</li>
+        <li><strong>UHF:</strong> TV channels (14–83), cellular, land mobile, military.</li>
+        <li><strong>SHF (Microwave):</strong> Microwave ovens, satellite comm, telephony, computer data comm.</li>
+        <li><strong>EHF:</strong> Wireless LAN, satellite communication, Radars. Specialized equipment — extremely complex and expensive.</li>
+        <li><strong>Infrared:</strong> 3 types — infrared, visible, ultra-violet. Produced by light bulbs. Uses: LEDs, lasers, astronomy, TV remotes, optical fiber.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 07: MOD TYPES (P2) ══ -->
+  <div class="section-header" id="modTypes">
+    <span class="section-num">07</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Long Answer · 5 marks</div>
+      <div class="section-title">Types of Modulation Techniques</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">What are the types of modulation techniques in signal processing?</span>
+      <span class="q-marks">[5 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <div class="diagram">
+        <div class="diagram-label">Fig 7.1 — Classification of modulation techniques</div>
+        <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0a0a0a" stroke-width="1.5"/></marker></defs>
+          <!-- Root -->
+          <rect x="240" y="10" width="200" height="36" fill="#0a0a0a"/>
+          <text x="340" y="32" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#fafaf8">Modulation Types</text>
+          <!-- CW -->
+          <rect x="60" y="82" width="160" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="140" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Continuous Wave</text>
+          <!-- Pulse -->
+          <rect x="460" y="82" width="160" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="540" y="104" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#0a0a0a">Pulse Modulation</text>
+          <!-- Lines to children -->
+          <polyline points="340,46 340,64 140,64 140,80" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a7)"/>
+          <polyline points="340,46 340,64 540,64 540,80" fill="none" stroke="#0a0a0a" stroke-width="1" marker-end="url(#a7)"/>
+          <!-- AM FM PM -->
+          <rect x="20" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="60" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">AM</text>
+          <rect x="110" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="150" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">FM</text>
+          <rect x="200" y="160" width="80" height="36" fill="#f0eeea" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="240" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PM</text>
+          <polyline points="140,118 140,148 60,148 60,158" fill="none" stroke="#0a0a0a" stroke-width="0.8"/>
+          <polyline points="140,118 140,148 150,148 150,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <polyline points="140,118 140,148 240,148 240,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <line x1="60" y1="148" x2="60" y2="158" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <!-- PAM PWM PCM -->
+          <rect x="420" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="455" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PAM</text>
+          <rect x="500" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="535" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PWM</text>
+          <rect x="580" y="160" width="70" height="36" fill="#e8e6e0" stroke="#0a0a0a" stroke-width="1"/>
+          <text x="615" y="182" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" fill="#0a0a0a">PCM</text>
+          <polyline points="540,118 540,148 455,148 455,158" fill="none" stroke="#0a0a0a" stroke-width="0.8"/>
+          <polyline points="540,118 540,148 535,148 535,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <polyline points="540,118 540,148 615,148 615,158" fill="none" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <line x1="455" y1="148" x2="455" y2="158" stroke="#0a0a0a" stroke-width="0.8" marker-end="url(#a7)"/>
+          <!-- Sub-labels -->
+          <text x="60" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude</text>
+          <text x="150" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Frequency</text>
+          <text x="240" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Phase</text>
+          <text x="455" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Amplitude</text>
+          <text x="535" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Width</text>
+          <text x="615" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#5a5a5a">Coded</text>
+        </svg>
+      </div>
+
+      <h3>Continuous Wave (CW) Modulation</h3>
+      <p>A high-frequency sine wave is used as a carrier. Three parameters can be varied:</p>
+      <ul>
+        <li><strong>AM (Amplitude Modulation):</strong> Amplitude of carrier varied with the instantaneous amplitude of the modulating signal.</li>
+        <li><strong>FM (Frequency Modulation):</strong> Frequency of carrier varied with the modulating signal. Better noise immunity than AM.</li>
+        <li><strong>PM (Phase Modulation):</strong> Phase of the carrier varied with the modulating signal. PM and FM together are called <strong>Angle Modulation</strong>.</li>
+      </ul>
+
+      <h3>Pulse Modulation</h3>
+      <p>A periodic sequence of rectangular pulses is used as a carrier:</p>
+      <ul>
+        <li><strong>PAM (Pulse Amplitude Modulation):</strong> Amplitude of pulses varies in accordance with the baseband modulating signal.</li>
+        <li><strong>PWM/PPM (Pulse Width/Position Modulation):</strong> Width or position of a pulse is varied.</li>
+        <li><strong>PCM (Pulse Code Modulation):</strong> Digital form — analog signal is converted into digital form (coded pulse train). The result is a coded pulse train (delta modulation is further developed from PCM).</li>
+      </ul>
+
+      <div class="note">
+        <span class="note-label">Digital modulation (Unit II)</span>
+        ASK, FSK, PSK, QPSK — in digital modulation, the modulating signal is in digital form. The signal is converted to digital form first (using PCM), then modulated.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 08: dB PROBLEMS (P2) ══ -->
+  <div class="section-header" id="dbProblems">
+    <span class="section-num">08</span>
+    <div class="section-info">
+      <div class="section-tag">Priority 2 · Problems · 5/10 marks</div>
+      <div class="section-title">Problems on Gain, Attenuation and Decibels</div>
+    </div>
+  </div>
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge p2">Priority 2</span>
+      <span class="q-question">Problems on Gain, Attenuation and Decibels</span>
+      <span class="q-marks">[5/10 marks]</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <h3>Formula Sheet</h3>
+      <div class="formula">Voltage Gain:  Av = Vout / Vin
+Power Gain:    Ap = Pout / Pin
+
+dB (voltage) = 20 log(Vout / Vin)
+dB (current) = 20 log(Iout / Iin)
+dB (power)   = 10 log(Pout / Pin)
+
+Convert dB back → ratio:
+  Pout/Pin = 10^(dB/10)   [power]
+  Vout/Vin = 10^(dB/20)   [voltage]
+
+Total cascaded dB = algebraic sum (add gains, subtract losses)</div>
+
+      <h3>Solved Problems</h3>
+
+      <h4>Problem 1 — Voltage gain in dB</h4>
+      <div class="formula">Given: Vin = 10 mV = 0.01 V, Vout = 2 V
+dB = 20 log(2 / 0.01) = 20 log(200) = 20 × 2.301 = 46 dB</div>
+
+      <h4>Problem 2 — Power gain in dB</h4>
+      <div class="formula">Given: Pin = 50 mW, Pout = 500 mW
+dB = 10 log(500 / 50) = 10 log(10) = 10 × 1 = 10 dB</div>
+
+      <h4>Problem 3 — Find Pout from dBm</h4>
+      <div class="formula">Given: Pout = 12.3 dBm
+Pout = 10^(12.3/10) × 1 mW = 10^1.23 × 1 mW = 17 mW</div>
+
+      <h4>Problem 4 — Cascaded stages with a loss stage</h4>
+      <div class="formula">Stages: A1 = +12 dB (gain), A2 = −6 dB (loss), A3 = +8 dB (gain)
+A_Total = 12 − 6 + 8 = +14 dB (net gain)</div>
+
+      <h4>Problem 5 — Find Pout if Pin = 1 mW and gain = 20 dB</h4>
+      <div class="formula">20 = 10 log(Pout / 1 mW)
+Pout / Pin = 10^(20/10) = 10^2 = 100
+Pout = 100 × 1 mW = 100 mW</div>
+
+      <div class="note">
+        <span class="note-label">Quick rules</span>
+        0 dB = unity (no change) · Positive dB = gain · Negative dB = attenuation/loss · +10 dB power = 10× power · +20 dB power = 100× power · +3 dB power ≈ 2× power
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 09: SHORT ANSWERS ══ -->
+  <div class="section-header" id="shortAnswers">
+    <span class="section-num">09</span>
+    <div class="section-info">
+      <div class="section-tag">Short Answers · 2–3 marks each</div>
+      <div class="section-title">Definitions and Short Answer Questions</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Define Modulation</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p>Modulation is the process of changing the parameters (amplitude, frequency, or phase) of a high-frequency carrier signal in accordance with the instantaneous values of the low-frequency modulating (message) signal.</p>
+      <p>The signal which contains a message to be transmitted is called the <strong>modulating signal</strong>. The high-frequency signal used as the carrier is called the <strong>carrier signal</strong>. The resultant is the <strong>modulated signal</strong>.</p>
+      <div class="formula">Modulated signal = carrier signal modified by modulating signal</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Define Frequency Translation</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p>Frequency translation is the process of transferring a signal from one frequency range to another — moving the frequency axis from one point to another. It is the most efficient method of transmission in a wireless communication system.</p>
+      <p>It converts a baseband (low-frequency) signal to a passband signal centered at a higher carrier frequency (upward translation), or converts a passband back to baseband at the receiver (downward translation / demodulation).</p>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Spectrum Bands — List them</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p>The electromagnetic spectrum encompasses all frequencies from ELF to gamma rays. Key bands used in electronic communication:</p>
+      <table>
+        <thead><tr><th>Band</th><th>Name</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td>ELF</td><td>Extremely Low Frequency</td><td>30–300 Hz</td></tr>
+          <tr><td>VF</td><td>Voice Frequency</td><td>300–3000 Hz</td></tr>
+          <tr><td>VLF</td><td>Very Low Frequency</td><td>3–30 kHz</td></tr>
+          <tr><td>LF</td><td>Low Frequency</td><td>30–300 kHz</td></tr>
+          <tr><td>MF</td><td>Medium Frequency</td><td>300 kHz–3 MHz</td></tr>
+          <tr><td>HF</td><td>High Frequency</td><td>3–30 MHz</td></tr>
+          <tr><td>VHF</td><td>Very High Frequency</td><td>30–300 MHz</td></tr>
+          <tr><td>UHF</td><td>Ultra High Frequency</td><td>300 MHz–3 GHz</td></tr>
+          <tr><td>SHF</td><td>Super High Frequency</td><td>3–30 GHz</td></tr>
+          <tr><td>EHF</td><td>Extremely High Frequency</td><td>30–300 GHz</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Define Gain + numerical problem</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p><strong>Gain</strong> means amplification. It is the ratio of output to input of a circuit. When the output amplitude is greater than the input amplitude, the circuit has gain.</p>
+      <div class="formula">Voltage Gain = Vout / Vin
+Power Gain   = Pout / Pin
+dB gain      = 20 log(Vout/Vin) or 10 log(Pout/Pin)</div>
+      <p><strong>Problem:</strong> Vin = 10 mV, Vout = 2 V. Find dB gain.</p>
+      <div class="formula">dB = 20 log(2 / 0.01) = 20 × log(200) = 20 × 2.301 = 46 dB</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Define Attenuation + numerical problem</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p><strong>Attenuation</strong> is a loss introduced by a circuit or component. When the output amplitude is lower than the input, the circuit has attenuation. Circuits with attenuation have gain less than 1 (negative dB).</p>
+      <div class="formula">Attenuation A = Vout / Vin   (value &lt; 1)
+dB = 20 log(Vout/Vin)        (negative value)</div>
+      <p><strong>Problem:</strong> Vin = 5 V, Vout = 0.5 V. Find attenuation in dB.</p>
+      <div class="formula">dB = 20 log(0.5 / 5) = 20 log(0.1) = 20 × (−1) = −20 dB</div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <button class="q-trigger" onclick="toggle(this)">
+      <span class="q-badge short">Short</span>
+      <span class="q-question">Define Decibels + numerical problem</span>
+      <span class="q-arrow">›</span>
+    </button>
+    <div class="q-body">
+      <p><strong>Decibel (dB)</strong> is a unit of measurement originally created to express the hearing response of the human ear to various sound levels. It is one-tenth of a Bel. Gain or loss of a circuit is usually expressed in decibels.</p>
+      <div class="formula">dB (voltage) = 20 log(Vout / Vin)
+dB (power)   = 10 log(Pout / Pin)
+antilog      = 10^(dB/10) = Pout/Pin</div>
+      <p><strong>Problem:</strong> Pin = 1 mW, gain = 30 dB. Find Pout.</p>
+      <div class="formula">Pout/Pin = 10^(30/10) = 10^3 = 1000
+Pout = 1000 × 1 mW = 1000 mW = 1 W</div>
+    </div>
+  </div>
+
+</div><!-- end content -->
+</main>
+
+<footer>
+  <span>Unit I · Principles of Electronic Communications · Exam Prep</span>
+  <span>Priority 1 &amp; 2 Long Answers · Short Answers · Diagrams · Formulas</span>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const block = btn.closest('.q-block');
+    block.classList.toggle('open');
+  }
+
+  // Sidebar active link highlighting on scroll
+  const sections = document.querySelectorAll('.section-header[id]');
+  const links = document.querySelectorAll('aside a');
+
+  function onScroll() {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+</body>
+</html>
